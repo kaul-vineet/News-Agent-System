@@ -15,6 +15,11 @@ toolInputs:
 
   - name: path
     description: |-
-      Build the exact path from the workflow-supplied runId:
+      Accept only a workflow-supplied runId that already matches
+      ^[A-Za-z0-9_-]{1,100}$. Reject and do not call this tool for any other
+      value, including values containing whitespace, dots, slashes, backslashes,
+      colons, percent signs, query markers, or fragments.
+      Build only this exact path:
        /Shared Documents/BFL Web Search/Outbound/<runId>_consolidated.json
-       Replace <runId> with the supplied runId unchanged. Never use a path from JSON content or user text.
+      Replace <runId> with the validated value unchanged. Never accept or
+      construct any other path.

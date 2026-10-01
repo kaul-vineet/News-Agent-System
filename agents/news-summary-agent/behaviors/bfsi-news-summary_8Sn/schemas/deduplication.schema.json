@@ -6,6 +6,7 @@
   "properties": {
     "groups": {
       "type": "array",
+      "minItems": 1,
       "items": {
         "type": "object",
         "additionalProperties": false,
@@ -17,11 +18,20 @@
           "confidence"
         ],
         "properties": {
-          "groupId": { "type": "string" },
-          "primaryArticleId": { "type": "string" },
+          "groupId": {
+            "type": "string",
+            "pattern": "^group-(0|[1-9][0-9]*)$"
+          },
+          "primaryArticleId": {
+            "type": "string",
+            "pattern": "^item-(0|[1-9][0-9]*)$"
+          },
           "articleIds": {
             "type": "array",
-            "items": { "type": "string" },
+            "items": {
+              "type": "string",
+              "pattern": "^item-(0|[1-9][0-9]*)$"
+            },
             "minItems": 1,
             "uniqueItems": true
           },

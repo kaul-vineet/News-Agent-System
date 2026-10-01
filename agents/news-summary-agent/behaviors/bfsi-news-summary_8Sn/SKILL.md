@@ -7,10 +7,9 @@ description: Analyzes a run-scoped consolidated BFSI results array, deduplicates
 
 ## Use this skill
 
-Use this skill only after the top-level agent has received a nonempty `runId`
-and read this exact SharePoint path:
-
-`/Shared Documents/BFL Web Search/Outbound/<runId>_consolidated.json`
+Use this skill only after the top-level agent has validated `runId` against
+`^[A-Za-z0-9_-]{1,100}$` and the configured SharePoint tool has returned the
+corresponding consolidated results.
 
 Required skill inputs:
 
@@ -74,8 +73,9 @@ claim from one.
 
 ## Procedure
 
-1. Confirm `runId` is nonempty and the supplied data is a nonempty root array.
-   Validate every item against the consolidated-results schema.
+1. Confirm `runId` matches `^[A-Za-z0-9_-]{1,100}$` and the supplied data is a
+   nonempty root array. Validate every item against the consolidated-results
+   schema.
 2. Count every array item exactly once as retrieved or unresolved. Preserve
    unresolved item IDs with their supplied `failureCategory` and `reason`.
 3. For each retrieved item, create exactly one semantic analysis conforming to
@@ -92,7 +92,9 @@ claim from one.
    separate stories unless the supplied evidence establishes one event.
 6. Produce output conforming to `schemas/deduplication.schema.json`. Every
    analysis must appear in exactly one group, and each primary article must be a
-   member of its group.
+   member of its group. Explicitly validate that groups are nonempty; group IDs
+   are unique; article IDs refer only to retrieved items; every retrieved item
+   occurs once globally; and each primary ID occurs in its own group.
 7. Select one primary article per group. Prefer the item with the clearest
    resolved title, strongest and most specific supplied summary/key facts,
    identifiable publisher, useful date/by-line metadata, and direct relevance
@@ -119,7 +121,8 @@ claim from one.
 12. Write a concise BFSI newsletter subject. Insert all executive rows into
    `{{EXECUTIVE_SUMMARY_ROWS}}` and all story cards into `{{STORY_CARDS}}` in
    the bundled template. HTML-escape every untrusted text value and
-   attribute-escape every URL.
+   attribute-escape every URL. Each replacement fragment must contain only one
+   or more complete `<tr>...</tr>` rows at its top level.
 13. Preserve the existing table layout and inline styling. Unicode text icons
     are allowed; remote icon images are not. Add no script,
     iframe, form, object, embed, event-handler attribute, external stylesheet,
@@ -130,12 +133,14 @@ claim from one.
     `resolvedUrl`; every claim is supported by supplied primary-item evidence;
     every executive row is at most 180 characters; every card has no more than
     15 structured content lines; and every card has at most four key-signal
-    bullets.
+    bullets. Validate that both inserted fragments contain only complete
+    top-level table rows.
 
 ## Returned result
 
 Return one structured result to the top-level agent containing:
 
+- `isValid`: true only when all completion requirements and validations pass;
 - `runId`;
 - `inputCount`, `retrievedCount`, `unresolvedCount`, `analysedCount`, and
   `uniqueStoryCount`;
@@ -144,8 +149,9 @@ Return one structured result to the top-level agent containing:
 - validated deduplication groups and primary selections;
 - newsletter `subject`;
 - complete Outlook-safe `htmlBody`;
-- validation results for schema, coverage, counts, placeholders, URLs, active
-  content, and grounding, plus concise errors when invalid.
+- named validation results for schema, retrieved-item coverage, one-group
+  membership, primary membership, counts, placeholders, table-row fragments,
+  URLs, active content, and grounding, plus concise errors when invalid.
 
 ## Completion and failure
 

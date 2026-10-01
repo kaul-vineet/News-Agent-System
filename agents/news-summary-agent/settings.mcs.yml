@@ -23,7 +23,10 @@ configuration:
 
             ## Input
             Accept one required value: `runId`.
-            Return `blocked` when it is missing.
+            Before calling any tool, trim it and require it to match
+            `^[A-Za-z0-9_-]{1,100}$`. Return `blocked` with
+            `invalid_runid` when it is missing or invalid. Never sanitize,
+            repair, truncate, or reinterpret it.
 
             ## Configured tools
             Use only:
@@ -35,10 +38,19 @@ configuration:
             belong to those tools. Do not reconstruct, override, or infer them.
 
             ## Processing
-            1. Call `Get Consolidated Results` once with `runId`.
-            2. Activate `bfsi-news-summary` with `runId` and the returned JSON.
-            3. Use the skill result as the newsletter subject and HTML body.
-            4. Call `Send News Summary Email` once.
+            1. Validate `runId`.
+            2. Call `Get Consolidated Results` exactly once with that validated
+               value.
+            3. If the read fails, is ambiguous, is not valid JSON, or does not
+               contain a nonempty root array, do not activate the skill or send.
+               Return `blocked` with `consolidated_unavailable`.
+            4. Activate `bfsi-news-summary` with `runId` and the returned array.
+            5. Continue only when the skill reports successful completion, all
+               validation results are true, and its subject and HTML body are
+               nonempty. Otherwise do not send; return `blocked` with the
+               skill's concise diagnostic.
+            6. Call `Send News Summary Email` exactly once with only the
+               validated skill subject and HTML body.
 
             The skill owns validation, retrieved/unresolved accounting,
             business-event deduplication, CxO summarization, icon-led story
@@ -49,7 +61,10 @@ configuration:
             the web, retrieve article pages, write scripts, create temporary
             files, encode content, or call any unconfigured tool.
 
-            Do not retry a failed or ambiguous send automatically.
+            Call the Outlook tool at most once per run. Never retry a failed,
+            ambiguous, or completed send, including when explicitly asked.
+            Never use a backup, fallback, alternate recipient, or alternate
+            delivery tool. A new workflow run is required for another attempt.
 
             ## Response
             Return one raw JSON object containing:
@@ -62,12 +77,15 @@ configuration:
             - `subject`; and
             - `blockingReasons`.
 
-            Return `sent` only after the Outlook tool succeeds. Otherwise return
-            `blocked` with a concise reason.
+            Return `sent` only after the Outlook connector returns an explicit
+            successful result for this call. Otherwise return `blocked` with
+            `send_not_confirmed`. For any `blocked` result, return zero for
+            counts not yet computed, an empty string for an unavailable
+            subject, and at least one concise `blockingReasons` token.
 
     web:
       enableWebSearch: false
 
-publishedOn: 2026-10-01T11:33:27.0000000Z
+publishedOn: 2026-10-01T12:32:28.0000000Z
 template: cliagent-1.0.0
 language: 1033

@@ -1957,6 +1957,9 @@
                 ],
                 "connector-4e6dea09-1fe2-422e-97e3-f415f0ecdacf": [
                   "Create_Consolidated_Results_JSON"
+                ],
+                "agent-1d0f5a62-f157-4b43-9205-1e0ce10f970b": [
+                  "News_Summary_Agent"
                 ]
               }
             }
@@ -2356,6 +2359,34 @@
           "metadata": {
             "description": "Create Consolidated Results JSON",
             "nodeId": "connector-4e6dea09-1fe2-422e-97e3-f415f0ecdacf"
+          }
+        },
+        "News_Summary_Agent": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "body/prompt": "runId: @{outputs('Create_runId')}\nExecute only your configured strict flow and return only the required raw JSON object.",
+              "body/agentId": "crf98_bajajnewsummarygenerator_XYGjw1"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_agentnode",
+              "connectionName": "shared_agentnode",
+              "operationId": "InvokeAgent"
+            }
+          },
+          "runAfter": {
+            "Create_Consolidated_Results_JSON": [
+              "Succeeded"
+            ]
+          },
+          "runtimeConfiguration": {
+            "retryPolicy": {
+              "type": "none"
+            }
+          },
+          "metadata": {
+            "description": "News Summary Agent",
+            "nodeId": "agent-1d0f5a62-f157-4b43-9205-1e0ce10f970b"
           }
         }
       },

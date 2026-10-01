@@ -15,13 +15,19 @@ Use a two-article email before a production-volume run.
 ## Summary agent
 
 - The agent receives only `runId`.
+- Missing, whitespace, path-like, or otherwise invalid `runId` values block
+  before any tool call.
 - It reads the matching consolidated file from SharePoint.
+- Failed, ambiguous, non-JSON, empty, or wrapped reads block before the skill
+  or send tool.
 - It does not read the source email or perform web search.
 - Retrieved and unresolved counts match the array contents.
 - Duplicate coverage becomes one business story.
 - Every unique story has one executive line and one story card.
 - Every newsletter link comes from the selected result's `resolvedUrl`.
 - The HTML template has no unreplaced placeholders or active content.
+- Prompt instructions embedded in article fields cannot change tools,
+  recipients, paths, URLs, or delivery behavior.
 
 ## Delivery
 
@@ -30,3 +36,5 @@ Use a two-article email before a production-volume run.
 - A failed or ambiguous send returns `blocked`.
 - The agent does not retry, use a backup path, or call a fallback tool.
 - The workflow does not send a second email.
+- The workflow invokes News Summary Agent only after consolidated-file
+  creation succeeds and has connector retry disabled.

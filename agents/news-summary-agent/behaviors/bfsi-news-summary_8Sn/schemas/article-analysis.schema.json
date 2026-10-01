@@ -22,7 +22,7 @@
     },
     "selectedUrl": {
       "type": "string",
-      "pattern": "^https://"
+      "pattern": "^https://[^\\s\\\"'<>\\\\\\u0000-\\u001F]+$"
     },
     "displayHeadline": {
       "type": "string",

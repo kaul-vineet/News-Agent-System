@@ -46,6 +46,8 @@ control. Clone or initialize each agent locally before pulling or pushing.
 - All three tenant agents are represented as CLI-authoring projects.
 - News Agent Workflow is unpacked from the solution ZIP.
 - News Manifest Builder and Resilient Search Agent are deployed and working.
-- News Summary Agent has the consolidated-JSON instructions and skill.
-- The remaining full-flow work is documented in
-  [`docs/deployment.md`](docs/deployment.md).
+- News Summary Agent is deployed with exactly two configured tools: consolidated
+  SharePoint read and Outlook send.
+- News Agent Workflow invokes News Summary Agent after consolidated-file
+  creation with connector retry disabled.
+- The workflow and News Summary Agent are published in the tenant.

@@ -20,7 +20,7 @@ pac solution pack `
   --packagetype Unmanaged
 ```
 
-## Remaining full-flow setup
+## Full-flow deployment
 
 Configure these tools on News Summary Agent:
 
@@ -28,7 +28,7 @@ Configure these tools on News Summary Agent:
 2. Office 365 Outlook Send Email.
 3. Administrator-controlled newsletter recipients.
 
-Then update News Agent Workflow:
+News Agent Workflow must:
 
 1. Add a News Summary Agent action after Create Consolidated Results JSON.
 2. Pass only the output of Create runId:
@@ -39,8 +39,10 @@ Then update News Agent Workflow:
    }
    ```
 
-3. Do not add another Outlook send action after the agent.
-4. Handle `sent` and `blocked` as terminal outcomes.
-5. Disable automatic retry after an ambiguous or failed send.
+3. Contain no second Outlook send action after the agent.
+4. Treat `sent` and `blocked` as terminal outcomes.
+5. Disable connector retry on the News Summary Agent action.
 
-Publish only after the controlled-recipient validation succeeds.
+The checked-in workflow implements this sequence. Publish Agent 3 and import
+and activate the workflow solution only after controlled-recipient validation
+succeeds.
