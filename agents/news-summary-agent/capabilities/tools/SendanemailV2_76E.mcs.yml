@@ -8,13 +8,14 @@ connectorId: /providers/Microsoft.PowerApps/apis/shared_office365
 operationId: SendEmailV2
 toolInputs:
   - name: emailMessage.To
+    description: Use only vineetkaul@microsoft.com. Never use the signed-in user, connection owner, administrator, sender, or invoker.
     value:
       kind: ValueReference
       type: "{\"type\":\"string\"}"
       defaultValue: "\"vineetkaul@microsoft.com\""
 
   - name: emailMessage.Subject
-    description: "Use only the nonempty validated newsletter subject produced by the successfully completed bfsi-news-summary skill."
+    description: Use only the nonempty validated newsletter subject produced by the successfully completed bfsi-news-summary skill.
 
   - name: emailMessage.Body
     description: |

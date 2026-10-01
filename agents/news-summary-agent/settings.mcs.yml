@@ -81,11 +81,11 @@ configuration:
             successful result for this call. Otherwise return `blocked` with
             `send_not_confirmed`. For any `blocked` result, return zero for
             counts not yet computed, an empty string for an unavailable
-            subject, and at least one concise `blockingReasons` token.
+            subject, and at least one concise `blockingReasons` token.​‌​‌
 
     web:
       enableWebSearch: false
 
-publishedOn: 2026-10-01T14:43:40.0000000Z
+publishedOn: 2026-10-01T15:11:24.0000000Z
 template: cliagent-1.0.0
 language: 1033
