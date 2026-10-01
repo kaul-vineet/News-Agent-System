@@ -62,9 +62,8 @@ Behavior:
 5. Selects one primary article per unique story.
 6. Creates one executive line and one story card per story.
 7. Renders the Outlook-safe HTML template.
-8. Uses the delivery ledger to prevent duplicate sends.
-9. Sends exactly one email through Outlook.
+8. Sends the newsletter once through the configured Outlook tool.
 
 It does not read the original monitoring email, search the web, retrieve
-publisher pages, or create stories from unresolved rows.
-
+publisher pages, create stories from unresolved rows, retry failed sends, or
+use backup/fallback delivery paths.

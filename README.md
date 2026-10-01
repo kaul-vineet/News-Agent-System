@@ -29,10 +29,6 @@ The workflow creates:
 - `/Shared Documents/BFL Web Search/Inbound/<runId>_manifest.json`
 - `/Shared Documents/BFL Web Search/Outbound/<runId>_consolidated.json`
 
-The summary agent uses:
-
-- `/Shared Documents/BFL Web Search/Delivery Ledger/<runId>_delivery.json`
-
 ## Repository layout
 
 ```text
@@ -53,4 +49,3 @@ control. Clone or initialize each agent locally before pulling or pushing.
 - News Summary Agent has the consolidated-JSON instructions and skill.
 - The remaining full-flow work is documented in
   [`docs/deployment.md`](docs/deployment.md).
-

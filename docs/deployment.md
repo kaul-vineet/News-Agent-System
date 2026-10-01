@@ -25,11 +25,8 @@ pac solution pack `
 Configure these tools on News Summary Agent:
 
 1. SharePoint Get file content using path.
-2. SharePoint delivery-ledger read.
-3. SharePoint delivery-ledger create-if-absent.
-4. SharePoint delivery-ledger update.
-5. Office 365 Outlook Send Email.
-6. Administrator-controlled newsletter recipients.
+2. Office 365 Outlook Send Email.
+3. Administrator-controlled newsletter recipients.
 
 Then update News Agent Workflow:
 
@@ -43,7 +40,7 @@ Then update News Agent Workflow:
    ```
 
 3. Do not add another Outlook send action after the agent.
-4. Handle `sent`, `already_sent`, and `blocked` as terminal outcomes.
+4. Handle `sent` and `blocked` as terminal outcomes.
+5. Disable automatic retry after an ambiguous or failed send.
 
 Publish only after the controlled-recipient validation succeeds.
-
