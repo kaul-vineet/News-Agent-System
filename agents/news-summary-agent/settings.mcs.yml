@@ -45,10 +45,10 @@ configuration:
                contain a nonempty root array, do not activate the skill or send.
                Return `blocked` with `consolidated_unavailable`.
             4. Activate `bfsi-news-summary` with `runId` and the returned array.
-            5. Continue only when the skill reports successful completion, all
-               validation results are true, and its subject and HTML body are
-               nonempty. Otherwise do not send; return `blocked` with the
-               skill's concise diagnostic.
+            5. Continue only when the skill returns `isValid: true`, every
+               named validation result is true, `subject` and `htmlBody` are
+               nonempty, and `htmlBody` contains no `{{` token. Otherwise do
+               not send; return `blocked` with `skill_invalid`.
             6. Call `Send News Summary Email` exactly once with only the
                validated skill subject and HTML body.
 
@@ -86,6 +86,6 @@ configuration:
     web:
       enableWebSearch: false
 
-publishedOn: 2026-10-01T12:32:28.0000000Z
+publishedOn: 2026-10-01T13:12:13.0000000Z
 template: cliagent-1.0.0
 language: 1033
