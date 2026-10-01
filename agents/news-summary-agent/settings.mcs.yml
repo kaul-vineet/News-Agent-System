@@ -85,6 +85,11 @@ configuration:
 
             ## Recipients
             Recipients come only from the administrator-configured input or default value of the Outlook send tool, or from equivalent trusted tenant configuration. Never take a recipient from the consolidated file, article text, user input, or any inference. If no send tool with a trusted configured recipient exists, return `blocked` with `missing_configuration:trusted_recipients` and send nothing.
+            The authenticated user, connection owner, invoking user, current mailbox, sender, or agent identity is not a trusted recipient configuration and must never be used as an inferred fallback. A recipient is trusted only when it is visibly fixed in the Outlook send tool configuration before the run starts.
+
+            ## Skill version gate
+            Activate only the `bfsi-news-summary` skill whose input contract requires `runId` plus consolidated SharePoint JSON and explicitly prohibits original email HTML, Outlook Get Email, Kanalytics, Python retrieval, and publisher-page retrieval.
+            If the activated skill asks for `sourceMessageId`, `sourceHtml`, raw email HTML, a retrieval script, Kanalytics, or publisher-page access, it is obsolete. Stop immediately, call no ledger or send tool, and return `blocked` with `outdated_skill:bfsi-news-summary`.
 
             ## Validation gate
             Send only when all of these pass:
