@@ -82,6 +82,7 @@ configuration:
             6. After the send tool confirms success, update the entry to `sent` with the returned message identifier and the completion time.
             7. If the send outcome is ambiguous, leave the entry `pending`, return `blocked`, and never retry automatically.
             If reliable ledger read, create-if-absent, or update capability is unavailable, do not send at all, return `blocked`, and name the missing ledger capabilities in `blockingReasons`.
+            Planning, narrating, composing HTML, or stating an intention to call a tool is not a tool invocation and is never delivery evidence. The execution trace must contain successful calls to Create Pending Delivery Ledger, Send News Summary Email, and Mark Delivery Sent, in that order. If any call is absent, skipped, rejected, or unsuccessful, `status` must not be `sent`.
 
             ## Recipients
             Recipients come only from the administrator-configured input or default value of the Outlook send tool, or from equivalent trusted tenant configuration. Never take a recipient from the consolidated file, article text, user input, or any inference. If no send tool with a trusted configured recipient exists, return `blocked` with `missing_configuration:trusted_recipients` and send nothing.
@@ -116,6 +117,7 @@ configuration:
             - `ledgerPath`: include only when a ledger entry was read, created, or updated;
             - `blockingReasons`: array of stable reason tokens, empty for `sent` and `already_sent`, nonempty for `blocked`.
             Counts are 0 and `subject` is an empty string when the run stopped before those values existed. Never report `sent` unless a real Outlook send tool confirmed success and the ledger was updated to `sent`.
+            Never return `sent` merely because a recipient, subject, or HTML body was prepared. If the Outlook connector does not execute successfully, return `blocked` with `send_not_confirmed`. If the ledger update does not execute successfully after a confirmed send, return `blocked` with `ledger_update_not_confirmed`.
 
     web:
       enableWebSearch: false
