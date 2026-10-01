@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "runId",
+    "inputId",
+    "status",
+    "headline",
+    "sourceDomain",
+    "resolvedUrl",
+    "resolvedTitle",
+    "finalHost",
+    "publishedDate",
+    "journalist",
+    "language",
+    "summary",
+    "keyFacts",
+    "searchRoundsUsed",
+    "failureCategory",
+    "reason"
+  ],
+  "properties": {
+    "runId": {
+      "type": "string"
+    },
+    "inputId": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "retrieved",
+        "unresolved"
+      ]
+    },
+    "headline": {
+      "type": "string"
+    },
+    "sourceDomain": {
+      "type": "string"
+    },
+    "resolvedUrl": {
+      "type": ["string", "null"]
+    },
+    "resolvedTitle": {
+      "type": ["string", "null"]
+    },
+    "finalHost": {
+      "type": ["string", "null"]
+    },
+    "publishedDate": {
+      "type": ["string", "null"]
+    },
+    "journalist": {
+      "type": ["string", "null"]
+    },
+    "language": {
+      "type": ["string", "null"]
+    },
+    "summary": {
+      "type": ["string", "null"],
+      "maxLength": 600
+    },
+    "keyFacts": {
+      "type": "array",
+      "maxItems": 3,
+      "items": {
+        "type": "string",
+        "maxLength": 180
+      }
+    },
+    "searchRoundsUsed": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "failureCategory": {
+      "enum": [
+        null,
+        "no_results",
+        "title_mismatch",
+        "domain_mismatch",
+        "article_unavailable",
+        "access_blocked",
+        "round_limit",
+        "invalid_input",
+        "other"
+      ]
+    },
+    "reason": {
+      "type": ["string", "null"]
+    }
+  }
+}

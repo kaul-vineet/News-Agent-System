@@ -1,0 +1,23 @@
+mcs.metadata:
+  componentName: SharePoint create/read operations for the manifest file
+  description: Uploads a file to a SharePoint site. Make sure to pick an existing library.
+kind: ConnectorTool
+authMode: Invoker
+connectionReference: crf98_bfsimanifestbuilder_zMmb1d.cr.shared_sharepointonline
+connectorId: /providers/Microsoft.PowerApps/apis/shared_sharepointonline
+operationId: CreateFile
+toolInputs:
+  - name: dataset
+    value:
+      kind: ValueReference
+      type: "{\"type\":\"string\"}"
+      defaultValue: "\"https://m365cpi17930677.sharepoint.com\""
+
+  - name: folderPath
+    value:
+      kind: ValueReference
+      type: "{\"type\":\"string\"}"
+      defaultValue: "\"/Shared Documents/BFL Web Search/Inbound\""
+
+  - name: name
+    description: Name of the file. Allow the agent to provide it as runId_manifest.json.

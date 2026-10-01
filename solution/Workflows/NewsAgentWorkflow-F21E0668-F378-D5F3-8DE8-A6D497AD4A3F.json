@@ -1,0 +1,2351 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_sharepointonline": {
+        "api": {
+          "name": "shared_sharepointonline"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedsharepointonline_0b04668f"
+        },
+        "runtimeSource": "embedded",
+        "connectionName": "shared-sharepointonl-76a0449b-f426-4943-8910-4493d2760bdb"
+      },
+      "shared_agentnode": {
+        "api": {
+          "name": "shared_agentnode"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedagentnode_9b0ff22f"
+        },
+        "runtimeSource": "embedded",
+        "connectionName": "shared-agentnode-35a58582-365d-48e1-b2a4-fad7dde64dcc"
+      },
+      "shared_office365-1": {
+        "api": {
+          "name": "shared_office365"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedoffice365_ab2ce0cd"
+        },
+        "runtimeSource": "embedded",
+        "connectionName": "shared-office365-04ad18a2-919b-4625-a042-dc253ce6fd5a"
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "When_a_new_email_arrives": {
+          "type": "OpenApiConnectionNotification",
+          "inputs": {
+            "parameters": {
+              "folderPath": "Id::AQMkADlkYTcyZWI5LTVkMzQtNDkxYi1hMzBlLWRkADE5MDI3NmY5YjIALgAAAxQXbp2hAmpJiBYCs8TB0wsBAOI250vUUepLtNAWFIFy5uEAAAIBDAAAAA==",
+              "subjectFilter": "BFSI Web Kupdates"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365",
+              "operationId": "OnNewEmailV3",
+              "connectionName": "shared_office365-1"
+            }
+          },
+          "splitOn": "@triggerOutputs()?['body/value']",
+          "metadata": {
+            "associatedData": {
+              "graph": {
+                "name": "News Agent Workflow",
+                "nodes": [
+                  {
+                    "id": "start-54051990-dcc5-476b-9b9f-ba701f54ce3b",
+                    "name": "When a new email arrives",
+                    "type": "start",
+                    "version": 1,
+                    "position": {
+                      "x": 182,
+                      "y": 300
+                    },
+                    "data": {
+                      "config": {
+                        "triggerType": "connector",
+                        "connector": {
+                          "apiName": "shared_office365",
+                          "operationName": "OnNewEmailV3",
+                          "connectionName": "shared_office365-1",
+                          "inputs": {
+                            "folderPath": "Id::AQMkADlkYTcyZWI5LTVkMzQtNDkxYi1hMzBlLWRkADE5MDI3NmY5YjIALgAAAxQXbp2hAmpJiBYCs8TB0wsBAOI250vUUepLtNAWFIFy5uEAAAIBDAAAAA==",
+                            "subjectFilter": "BFSI Web Kupdates"
+                          },
+                          "displayName": "When a new email arrives",
+                          "iconUri": "https://res-1.cdn.office.net/files/fabric-cdn-prod_20251008.001/assets/brand-icons/product/svg/outlook_48x1.svg",
+                          "brandColor": "#0078D4",
+                          "operationType": "OpenApiConnectionNotification",
+                          "parametersSchema": {
+                            "type": "object",
+                            "properties": {
+                              "to": {
+                                "type": "string",
+                                "title": "To",
+                                "x-ms-dynamic-list": {
+                                  "builtInOperation": "AadGraph.GetUsers",
+                                  "parameters": {},
+                                  "itemValuePath": "mail"
+                                },
+                                "format": "email",
+                                "description": "Recipient email addresses separated by semicolons (If any match, the trigger will run).",
+                                "x-ms-visibility": "advanced",
+                                "x-ms-property-name-alias": "to"
+                              },
+                              "cc": {
+                                "type": "string",
+                                "title": "CC",
+                                "x-ms-dynamic-list": {
+                                  "builtInOperation": "AadGraph.GetUsers",
+                                  "parameters": {},
+                                  "itemValuePath": "mail"
+                                },
+                                "format": "email",
+                                "description": "CC recipient email addresses separated by semicolons (If any match, the trigger will run).",
+                                "x-ms-visibility": "advanced",
+                                "x-ms-property-name-alias": "cc"
+                              },
+                              "toOrCc": {
+                                "type": "string",
+                                "title": "To or CC",
+                                "x-ms-dynamic-list": {
+                                  "builtInOperation": "AadGraph.GetUsers",
+                                  "parameters": {},
+                                  "itemValuePath": "mail"
+                                },
+                                "format": "email",
+                                "description": "To or CC recipient email addresses separated by semicolons (If any match, the trigger will run).",
+                                "x-ms-visibility": "advanced",
+                                "x-ms-property-name-alias": "toOrCc"
+                              },
+                              "from": {
+                                "type": "string",
+                                "title": "From",
+                                "x-ms-dynamic-list": {
+                                  "builtInOperation": "AadGraph.GetUsers",
+                                  "parameters": {},
+                                  "itemValuePath": "mail"
+                                },
+                                "format": "email",
+                                "description": "Sender email addresses separated by semicolons (If any match, the trigger will run).",
+                                "x-ms-visibility": "advanced",
+                                "x-ms-property-name-alias": "from"
+                              },
+                              "includeAttachments": {
+                                "type": "boolean",
+                                "title": "Include Attachments",
+                                "description": "Should the response of the trigger include the attachments content.",
+                                "default": false,
+                                "x-ms-visibility": "advanced",
+                                "x-ms-property-name-alias": "includeAttachments"
+                              },
+                              "subjectFilter": {
+                                "type": "string",
+                                "title": "Subject Filter",
+                                "description": "String to look for in the subject line.",
+                                "x-ms-visibility": "advanced",
+                                "x-ms-property-name-alias": "subjectFilter"
+                              },
+                              "folderPath": {
+                                "type": "string",
+                                "title": "Folder",
+                                "x-ms-dynamic-tree": {
+                                  "settings": {
+                                    "canSelectParentNodes": true,
+                                    "canSelectLeafNodes": false
+                                  },
+                                  "open": {
+                                    "operationId": "OnFilePickerOpen",
+                                    "parameters": {
+                                      "operation": {
+                                        "value": "MailFolders"
+                                      }
+                                    },
+                                    "itemsPath": "value",
+                                    "itemValuePath": "Id",
+                                    "itemTitlePath": "DisplayName",
+                                    "itemFullTitlePath": "Path",
+                                    "itemIsParent": "(IsFolder eq true)"
+                                  },
+                                  "browse": {
+                                    "operationId": "OnFilePickerBrowse",
+                                    "parameters": {
+                                      "id": {
+                                        "selectedItemValuePath": "Id"
+                                      },
+                                      "operation": {
+                                        "value": "MailFolders"
+                                      }
+                                    },
+                                    "itemsPath": "value",
+                                    "itemValuePath": "Id",
+                                    "itemTitlePath": "DisplayName",
+                                    "itemFullTitlePath": "Path",
+                                    "itemIsParent": "(IsFolder eq true)"
+                                  }
+                                },
+                                "description": "Mail folder to check for new emails.",
+                                "default": "Inbox",
+                                "x-ms-property-name-alias": "folderPath"
+                              },
+                              "importance": {
+                                "type": "string",
+                                "title": "Importance",
+                                "description": "Importance of the email (Any, High, Normal, Low).",
+                                "default": "Any",
+                                "enum": [
+                                  "Any",
+                                  "Low",
+                                  "Normal",
+                                  "High"
+                                ],
+                                "x-ms-visibility": "advanced",
+                                "x-ms-enum-values": [
+                                  {
+                                    "displayName": "Any",
+                                    "value": "Any"
+                                  },
+                                  {
+                                    "displayName": "Low",
+                                    "value": "Low"
+                                  },
+                                  {
+                                    "displayName": "Normal",
+                                    "value": "Normal"
+                                  },
+                                  {
+                                    "displayName": "High",
+                                    "value": "High"
+                                  }
+                                ],
+                                "x-ms-property-name-alias": "importance"
+                              },
+                              "fetchOnlyWithAttachment": {
+                                "type": "boolean",
+                                "title": "Only with Attachments",
+                                "description": "If set to true, only emails with an attachment will be retrieved. Emails without any attachments will be skipped. If set to false, all emails will be retrieved.",
+                                "default": false,
+                                "x-ms-visibility": "advanced",
+                                "x-ms-property-name-alias": "fetchOnlyWithAttachment"
+                              }
+                            },
+                            "required": []
+                          },
+                          "triggerBatchMode": "Batch",
+                          "outputSchema": {
+                            "200": {
+                              "type": "object",
+                              "properties": {
+                                "body": {
+                                  "type": "object",
+                                  "properties": {
+                                    "value": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "properties": {
+                                          "from": {
+                                            "type": "string",
+                                            "title": "From",
+                                            "format": "email",
+                                            "description": "The mailbox owner and sender of the message",
+                                            "x-ms-visibility": "important",
+                                            "x-ms-property-name-alias": "from"
+                                          },
+                                          "toRecipients": {
+                                            "type": "string",
+                                            "title": "To",
+                                            "format": "email",
+                                            "description": "The recipients for the message",
+                                            "x-ms-visibility": "important",
+                                            "x-ms-property-name-alias": "toRecipients"
+                                          },
+                                          "ccRecipients": {
+                                            "type": "string",
+                                            "title": "CC",
+                                            "format": "email",
+                                            "description": "The Cc recipients for the message",
+                                            "x-ms-visibility": "advanced",
+                                            "x-ms-property-name-alias": "ccRecipients"
+                                          },
+                                          "bccRecipients": {
+                                            "type": "string",
+                                            "title": "BCC",
+                                            "format": "email",
+                                            "description": "The Bcc recipients for the message",
+                                            "x-ms-visibility": "advanced",
+                                            "x-ms-property-name-alias": "bccRecipients"
+                                          },
+                                          "replyTo": {
+                                            "type": "string",
+                                            "title": "Reply To",
+                                            "format": "email",
+                                            "description": "The email addresses to use when replying",
+                                            "x-ms-visibility": "advanced",
+                                            "x-ms-property-name-alias": "replyTo"
+                                          },
+                                          "subject": {
+                                            "type": "string",
+                                            "title": "Subject",
+                                            "description": "The subject of the message",
+                                            "x-ms-visibility": "important",
+                                            "x-ms-property-name-alias": "subject"
+                                          },
+                                          "body": {
+                                            "type": "string",
+                                            "title": "Body",
+                                            "description": "The body of the message",
+                                            "x-ms-visibility": "important",
+                                            "x-ms-property-name-alias": "body"
+                                          },
+                                          "importance": {
+                                            "type": "string",
+                                            "title": "Importance",
+                                            "description": "The importance of the message (low, normal, high)",
+                                            "enum": [
+                                              "low",
+                                              "normal",
+                                              "high"
+                                            ],
+                                            "x-ms-property-name-alias": "importance"
+                                          },
+                                          "bodyPreview": {
+                                            "type": "string",
+                                            "title": "Body Preview",
+                                            "description": "The preview of the message",
+                                            "x-ms-visibility": "advanced",
+                                            "x-ms-property-name-alias": "bodyPreview"
+                                          },
+                                          "hasAttachments": {
+                                            "type": "boolean",
+                                            "title": "Has Attachment",
+                                            "description": "Indicates whether the message has attachments",
+                                            "x-ms-property-name-alias": "hasAttachments"
+                                          },
+                                          "id": {
+                                            "type": "string",
+                                            "title": "Message Id",
+                                            "description": "The unique identifier of the message",
+                                            "x-ms-visibility": "advanced",
+                                            "x-ms-property-name-alias": "id"
+                                          },
+                                          "internetMessageId": {
+                                            "type": "string",
+                                            "title": "Internet Message Id",
+                                            "description": "The message ID in the format specified by RFC2822",
+                                            "x-ms-visibility": "advanced",
+                                            "x-ms-property-name-alias": "internetMessageId"
+                                          },
+                                          "conversationId": {
+                                            "type": "string",
+                                            "title": "Conversation Id",
+                                            "description": "The Id of the conversation the email belongs to",
+                                            "x-ms-visibility": "advanced",
+                                            "x-ms-property-name-alias": "conversationId"
+                                          },
+                                          "receivedDateTime": {
+                                            "type": "string",
+                                            "title": "Received Time",
+                                            "format": "date-time",
+                                            "description": "The date and time the message was received",
+                                            "x-ms-visibility": "advanced",
+                                            "x-ms-property-name-alias": "receivedDateTime"
+                                          },
+                                          "isRead": {
+                                            "type": "boolean",
+                                            "title": "Is Read",
+                                            "description": "Indicates whether the message has been read",
+                                            "x-ms-visibility": "advanced",
+                                            "x-ms-property-name-alias": "isRead"
+                                          },
+                                          "attachments": {
+                                            "type": "array",
+                                            "title": "Attachments",
+                                            "items": {
+                                              "type": "object",
+                                              "properties": {
+                                                "id": {
+                                                  "type": "string",
+                                                  "title": "Attachment Id",
+                                                  "description": "Attachment Id",
+                                                  "x-ms-property-name-alias": "id"
+                                                },
+                                                "name": {
+                                                  "type": "string",
+                                                  "title": "Name",
+                                                  "description": "Attachment name",
+                                                  "x-ms-property-name-alias": "name"
+                                                },
+                                                "contentBytes": {
+                                                  "type": "string",
+                                                  "title": "Content",
+                                                  "format": "byte",
+                                                  "description": "Attachment content",
+                                                  "x-ms-property-name-alias": "contentBytes"
+                                                },
+                                                "contentType": {
+                                                  "type": "string",
+                                                  "title": "Content-Type",
+                                                  "description": "Attachment content type",
+                                                  "x-ms-property-name-alias": "contentType"
+                                                },
+                                                "size": {
+                                                  "type": "integer",
+                                                  "title": "Size",
+                                                  "format": "int64",
+                                                  "description": "The size in bytes of the attachment",
+                                                  "x-ms-property-name-alias": "size"
+                                                },
+                                                "isInline": {
+                                                  "type": "boolean",
+                                                  "title": "Is Inline",
+                                                  "description": "Set to true if this is an inline attachment",
+                                                  "x-ms-property-name-alias": "isInline"
+                                                },
+                                                "lastModifiedDateTime": {
+                                                  "type": "string",
+                                                  "title": "Last Modified DateTime",
+                                                  "format": "date-time",
+                                                  "description": "The date and time when the attachment was last modified",
+                                                  "x-ms-property-name-alias": "lastModifiedDateTime"
+                                                },
+                                                "contentId": {
+                                                  "type": "string",
+                                                  "title": "Content Id",
+                                                  "description": "Content Id",
+                                                  "x-ms-property-name-alias": "contentId"
+                                                }
+                                              },
+                                              "required": [],
+                                              "description": "File Attachment"
+                                            },
+                                            "description": "The file attachments for the message",
+                                            "x-ms-visibility": "advanced",
+                                            "x-ms-property-name-alias": "attachments"
+                                          },
+                                          "isHtml": {
+                                            "type": "boolean",
+                                            "title": "Is HTML",
+                                            "description": "Is Html?",
+                                            "x-ms-visibility": "advanced",
+                                            "x-ms-property-name-alias": "isHtml"
+                                          },
+                                          "sensitivityLabelInfo": {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "object",
+                                              "properties": {
+                                                "sensitivityLabelId": {
+                                                  "type": "string",
+                                                  "title": "sensitivityLabelId",
+                                                  "description": "SensitivityLabel Id.",
+                                                  "x-ms-property-name-alias": "sensitivityLabelId"
+                                                },
+                                                "name": {
+                                                  "type": "string",
+                                                  "title": "name",
+                                                  "description": "SensitivityLabel name.",
+                                                  "x-ms-property-name-alias": "name"
+                                                },
+                                                "displayName": {
+                                                  "type": "string",
+                                                  "title": "displayName",
+                                                  "description": "SensitivityLabel displayName info",
+                                                  "x-ms-property-name-alias": "displayName"
+                                                },
+                                                "tooltip": {
+                                                  "type": "string",
+                                                  "title": "tooltip",
+                                                  "description": "SensitivityLabel details on tooltip.",
+                                                  "x-ms-property-name-alias": "tooltip"
+                                                },
+                                                "priority": {
+                                                  "type": "integer",
+                                                  "title": "priority",
+                                                  "format": "int32",
+                                                  "description": "SensitivityLabel priority.",
+                                                  "x-ms-property-name-alias": "priority"
+                                                },
+                                                "color": {
+                                                  "type": "string",
+                                                  "title": "color",
+                                                  "description": "SensitivityLabel color.",
+                                                  "x-ms-property-name-alias": "color"
+                                                },
+                                                "isEncrypted": {
+                                                  "type": "boolean",
+                                                  "title": "isEncrypted",
+                                                  "description": " is SensitivityLabel Encrypted.",
+                                                  "x-ms-property-name-alias": "isEncrypted"
+                                                },
+                                                "isEnabled": {
+                                                  "type": "boolean",
+                                                  "title": "isEnabled",
+                                                  "description": "Whether SensitivityLabel is Enabled.",
+                                                  "x-ms-property-name-alias": "isEnabled"
+                                                },
+                                                "isParent": {
+                                                  "type": "boolean",
+                                                  "title": "isParent",
+                                                  "description": "Whether SensitivityLabel is Parent.",
+                                                  "x-ms-property-name-alias": "isParent"
+                                                },
+                                                "parentSensitivityLabelId": {
+                                                  "type": "string",
+                                                  "title": "parentSensitivityLabelId",
+                                                  "description": "Parent SensitivityLabel Id.",
+                                                  "x-ms-property-name-alias": "parentSensitivityLabelId"
+                                                }
+                                              },
+                                              "required": []
+                                            },
+                                            "x-ms-property-name-alias": "sensitivityLabelInfo"
+                                          }
+                                        },
+                                        "required": [],
+                                        "description": "Graph Client Receive Email Message"
+                                      },
+                                      "description": "A list of the response objects",
+                                      "x-ms-property-name-alias": "body/value"
+                                    }
+                                  },
+                                  "required": [],
+                                  "description": "Represents a wrapper object for batch trigger response",
+                                  "x-ms-property-name-alias": "body"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "outcomes": [
+                        {
+                          "id": "default",
+                          "label": "Default",
+                          "outcomeSchema": {
+                            "type": "object",
+                            "properties": {
+                              "from": {
+                                "type": "string",
+                                "title": "From",
+                                "format": "email",
+                                "description": "The mailbox owner and sender of the message",
+                                "x-ms-visibility": "important",
+                                "x-ms-property-name-alias": "body/from"
+                              },
+                              "toRecipients": {
+                                "type": "string",
+                                "title": "To",
+                                "format": "email",
+                                "description": "The recipients for the message",
+                                "x-ms-visibility": "important",
+                                "x-ms-property-name-alias": "body/toRecipients"
+                              },
+                              "ccRecipients": {
+                                "type": "string",
+                                "title": "CC",
+                                "format": "email",
+                                "description": "The Cc recipients for the message",
+                                "x-ms-visibility": "advanced",
+                                "x-ms-property-name-alias": "body/ccRecipients"
+                              },
+                              "bccRecipients": {
+                                "type": "string",
+                                "title": "BCC",
+                                "format": "email",
+                                "description": "The Bcc recipients for the message",
+                                "x-ms-visibility": "advanced",
+                                "x-ms-property-name-alias": "body/bccRecipients"
+                              },
+                              "replyTo": {
+                                "type": "string",
+                                "title": "Reply To",
+                                "format": "email",
+                                "description": "The email addresses to use when replying",
+                                "x-ms-visibility": "advanced",
+                                "x-ms-property-name-alias": "body/replyTo"
+                              },
+                              "subject": {
+                                "type": "string",
+                                "title": "Subject",
+                                "description": "The subject of the message",
+                                "x-ms-visibility": "important",
+                                "x-ms-property-name-alias": "body/subject"
+                              },
+                              "body": {
+                                "type": "string",
+                                "title": "Body",
+                                "description": "The body of the message",
+                                "x-ms-visibility": "important",
+                                "x-ms-property-name-alias": "body/body"
+                              },
+                              "importance": {
+                                "type": "string",
+                                "title": "Importance",
+                                "description": "The importance of the message (low, normal, high)",
+                                "enum": [
+                                  "low",
+                                  "normal",
+                                  "high"
+                                ],
+                                "x-ms-property-name-alias": "body/importance"
+                              },
+                              "bodyPreview": {
+                                "type": "string",
+                                "title": "Body Preview",
+                                "description": "The preview of the message",
+                                "x-ms-visibility": "advanced",
+                                "x-ms-property-name-alias": "body/bodyPreview"
+                              },
+                              "hasAttachments": {
+                                "type": "boolean",
+                                "title": "Has Attachment",
+                                "description": "Indicates whether the message has attachments",
+                                "x-ms-property-name-alias": "body/hasAttachments"
+                              },
+                              "id": {
+                                "type": "string",
+                                "title": "Message Id",
+                                "description": "The unique identifier of the message",
+                                "x-ms-visibility": "advanced",
+                                "x-ms-property-name-alias": "body/id"
+                              },
+                              "internetMessageId": {
+                                "type": "string",
+                                "title": "Internet Message Id",
+                                "description": "The message ID in the format specified by RFC2822",
+                                "x-ms-visibility": "advanced",
+                                "x-ms-property-name-alias": "body/internetMessageId"
+                              },
+                              "conversationId": {
+                                "type": "string",
+                                "title": "Conversation Id",
+                                "description": "The Id of the conversation the email belongs to",
+                                "x-ms-visibility": "advanced",
+                                "x-ms-property-name-alias": "body/conversationId"
+                              },
+                              "receivedDateTime": {
+                                "type": "string",
+                                "title": "Received Time",
+                                "format": "date-time",
+                                "description": "The date and time the message was received",
+                                "x-ms-visibility": "advanced",
+                                "x-ms-property-name-alias": "body/receivedDateTime"
+                              },
+                              "isRead": {
+                                "type": "boolean",
+                                "title": "Is Read",
+                                "description": "Indicates whether the message has been read",
+                                "x-ms-visibility": "advanced",
+                                "x-ms-property-name-alias": "body/isRead"
+                              },
+                              "attachments": {
+                                "type": "array",
+                                "title": "Attachments",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "string",
+                                      "title": "Attachment Id",
+                                      "description": "Attachment Id",
+                                      "x-ms-property-name-alias": "id"
+                                    },
+                                    "name": {
+                                      "type": "string",
+                                      "title": "Name",
+                                      "description": "Attachment name",
+                                      "x-ms-property-name-alias": "name"
+                                    },
+                                    "contentBytes": {
+                                      "type": "string",
+                                      "title": "Content",
+                                      "format": "byte",
+                                      "description": "Attachment content",
+                                      "x-ms-property-name-alias": "contentBytes"
+                                    },
+                                    "contentType": {
+                                      "type": "string",
+                                      "title": "Content-Type",
+                                      "description": "Attachment content type",
+                                      "x-ms-property-name-alias": "contentType"
+                                    },
+                                    "size": {
+                                      "type": "integer",
+                                      "title": "Size",
+                                      "format": "int64",
+                                      "description": "The size in bytes of the attachment",
+                                      "x-ms-property-name-alias": "size"
+                                    },
+                                    "isInline": {
+                                      "type": "boolean",
+                                      "title": "Is Inline",
+                                      "description": "Set to true if this is an inline attachment",
+                                      "x-ms-property-name-alias": "isInline"
+                                    },
+                                    "lastModifiedDateTime": {
+                                      "type": "string",
+                                      "title": "Last Modified DateTime",
+                                      "format": "date-time",
+                                      "description": "The date and time when the attachment was last modified",
+                                      "x-ms-property-name-alias": "lastModifiedDateTime"
+                                    },
+                                    "contentId": {
+                                      "type": "string",
+                                      "title": "Content Id",
+                                      "description": "Content Id",
+                                      "x-ms-property-name-alias": "contentId"
+                                    }
+                                  },
+                                  "required": [],
+                                  "description": "File Attachment"
+                                },
+                                "description": "The file attachments for the message",
+                                "x-ms-visibility": "advanced",
+                                "x-ms-property-name-alias": "body/attachments"
+                              },
+                              "isHtml": {
+                                "type": "boolean",
+                                "title": "Is HTML",
+                                "description": "Is Html?",
+                                "x-ms-visibility": "advanced",
+                                "x-ms-property-name-alias": "body/isHtml"
+                              },
+                              "sensitivityLabelInfo": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "sensitivityLabelId": {
+                                      "type": "string",
+                                      "title": "sensitivityLabelId",
+                                      "description": "SensitivityLabel Id.",
+                                      "x-ms-property-name-alias": "sensitivityLabelId"
+                                    },
+                                    "name": {
+                                      "type": "string",
+                                      "title": "name",
+                                      "description": "SensitivityLabel name.",
+                                      "x-ms-property-name-alias": "name"
+                                    },
+                                    "displayName": {
+                                      "type": "string",
+                                      "title": "displayName",
+                                      "description": "SensitivityLabel displayName info",
+                                      "x-ms-property-name-alias": "displayName"
+                                    },
+                                    "tooltip": {
+                                      "type": "string",
+                                      "title": "tooltip",
+                                      "description": "SensitivityLabel details on tooltip.",
+                                      "x-ms-property-name-alias": "tooltip"
+                                    },
+                                    "priority": {
+                                      "type": "integer",
+                                      "title": "priority",
+                                      "format": "int32",
+                                      "description": "SensitivityLabel priority.",
+                                      "x-ms-property-name-alias": "priority"
+                                    },
+                                    "color": {
+                                      "type": "string",
+                                      "title": "color",
+                                      "description": "SensitivityLabel color.",
+                                      "x-ms-property-name-alias": "color"
+                                    },
+                                    "isEncrypted": {
+                                      "type": "boolean",
+                                      "title": "isEncrypted",
+                                      "description": " is SensitivityLabel Encrypted.",
+                                      "x-ms-property-name-alias": "isEncrypted"
+                                    },
+                                    "isEnabled": {
+                                      "type": "boolean",
+                                      "title": "isEnabled",
+                                      "description": "Whether SensitivityLabel is Enabled.",
+                                      "x-ms-property-name-alias": "isEnabled"
+                                    },
+                                    "isParent": {
+                                      "type": "boolean",
+                                      "title": "isParent",
+                                      "description": "Whether SensitivityLabel is Parent.",
+                                      "x-ms-property-name-alias": "isParent"
+                                    },
+                                    "parentSensitivityLabelId": {
+                                      "type": "string",
+                                      "title": "parentSensitivityLabelId",
+                                      "description": "Parent SensitivityLabel Id.",
+                                      "x-ms-property-name-alias": "parentSensitivityLabelId"
+                                    }
+                                  },
+                                  "required": []
+                                },
+                                "x-ms-property-name-alias": "body/sensitivityLabelInfo"
+                              }
+                            },
+                            "required": [],
+                            "description": "Graph Client Receive Email Message"
+                          }
+                        }
+                      ]
+                    },
+                    "measured": {
+                      "width": 240,
+                      "height": 66
+                    }
+                  },
+                  {
+                    "id": "connector-513720e7-2746-466a-9aa4-dcfa5881f09a",
+                    "name": "Get Manifest",
+                    "type": "connector",
+                    "version": 1,
+                    "position": {
+                      "x": 400,
+                      "y": 845
+                    },
+                    "data": {
+                      "config": {
+                        "apiName": "shared_sharepointonline",
+                        "displayName": "SharePoint",
+                        "iconUri": "https://static.powerapps.com/resource/ppcr/releases/v1.0.1827/1.0.1827.4913/sharepointonline/icon.png",
+                        "brandColor": "#036C70",
+                        "operationName": "GetFileContentByPath",
+                        "operationType": "OpenApiConnection",
+                        "parametersSchema": {
+                          "type": "object",
+                          "properties": {
+                            "dataset": {
+                              "type": "string",
+                              "title": "Site Address",
+                              "x-ms-dynamic-list": {
+                                "operationId": "GetDataSets",
+                                "parameters": {},
+                                "itemsPath": "value",
+                                "itemValuePath": "Name",
+                                "itemTitlePath": "DisplayName"
+                              },
+                              "description": "Example: https://contoso.sharepoint.com/sites/sitename.",
+                              "minLength": 1,
+                              "x-ms-property-name-alias": "dataset"
+                            },
+                            "path": {
+                              "type": "string",
+                              "title": "File Path",
+                              "x-ms-dynamic-tree": {
+                                "settings": {
+                                  "canSelectParentNodes": false,
+                                  "canSelectLeafNodes": true
+                                },
+                                "open": {
+                                  "operationId": "ListAllRootFolders",
+                                  "parameters": {
+                                    "dataset": {
+                                      "parameterReference": "dataset",
+                                      "required": true
+                                    }
+                                  },
+                                  "itemValuePath": "Path",
+                                  "itemTitlePath": "DisplayName",
+                                  "itemFullTitlePath": "Path",
+                                  "itemIsParent": "(IsFolder eq true)"
+                                },
+                                "browse": {
+                                  "operationId": "ListFolder",
+                                  "parameters": {
+                                    "dataset": {
+                                      "parameterReference": "dataset",
+                                      "required": true
+                                    },
+                                    "id": {
+                                      "selectedItemValuePath": "Id"
+                                    }
+                                  },
+                                  "itemValuePath": "Path",
+                                  "itemTitlePath": "DisplayName",
+                                  "itemFullTitlePath": "Path",
+                                  "itemIsParent": "(IsFolder eq true)"
+                                }
+                              },
+                              "description": "Select a file.",
+                              "x-ms-property-name-alias": "path"
+                            },
+                            "inferContentType": {
+                              "type": "boolean",
+                              "title": "Infer content type",
+                              "description": "Infer content-type based on extension.",
+                              "default": true,
+                              "x-ms-visibility": "advanced",
+                              "x-ms-property-name-alias": "inferContentType"
+                            }
+                          },
+                          "required": [
+                            "dataset",
+                            "path"
+                          ]
+                        },
+                        "parameters": {
+                          "inferContentType": true,
+                          "dataset": "https://m365cpi17930677.sharepoint.com",
+                          "path": "@body('builtinFunction-37400b10-a30b-4d22-92aa-29ec9b4c520a')?['manifestFilePath']"
+                        },
+                        "connectionName": "shared_sharepointonline"
+                      },
+                      "outcomes": [
+                        {
+                          "id": "default",
+                          "label": "Default",
+                          "outcomeSchema": {
+                            "type": "object",
+                            "properties": {
+                              "body": {
+                                "type": "string",
+                                "title": "File Content",
+                                "format": "binary",
+                                "description": "The content of the file.",
+                                "x-ms-property-name-alias": "body"
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "measured": {
+                      "width": 240,
+                      "height": 66
+                    }
+                  },
+                  {
+                    "id": "builtinFunction-60f1d285-bd6a-45aa-b5ba-c2c73acbecdc",
+                    "name": "Parse Manifest",
+                    "type": "builtinFunction",
+                    "version": 1,
+                    "position": {
+                      "x": 400,
+                      "y": 943
+                    },
+                    "data": {
+                      "config": {
+                        "operationId": "parsejson",
+                        "operationName": "parsejson",
+                        "displayName": "Parse JSON",
+                        "category": "providers/Microsoft.ProcessSimple/operationGroups/DataOperation",
+                        "categoryDisplayName": "Data Operations",
+                        "iconUri": "https://logicappsv2resources.blob.core.windows.net/icons/compose.svg",
+                        "brandColor": "#8c6cff",
+                        "parameters": {
+                          "content": "@body('connector-513720e7-2746-466a-9aa4-dcfa5881f09a')",
+                          "schema": "{\n    \"type\": \"object\",\n    \"properties\": {\n        \"runId\": {\n            \"type\": \"string\"\n        },\n        \"sourceFile\": {\n            \"type\": \"string\"\n        },\n        \"itemCount\": {\n            \"type\": \"integer\"\n        },\n        \"items\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"runId\": {\n                        \"type\": \"string\"\n                    },\n                    \"inputId\": {\n                        \"type\": \"string\"\n                    },\n                    \"headline\": {\n                        \"type\": \"string\"\n                    },\n                    \"sourceUrl\": {\n                        \"type\": \"string\"\n                    },\n                    \"sourceDomain\": {\n                        \"type\": \"string\"\n                    },\n                    \"sequence\": {\n                        \"type\": \"string\"\n                    },\n                    \"section\": {\n                        \"type\": \"string\"\n                    },\n                    \"date\": {\n                        \"type\": \"string\"\n                    },\n                    \"journalist\": {\n                        \"type\": \"string\"\n                    },\n                    \"language\": {\n                        \"type\": \"string\"\n                    },\n                    \"reach\": {\n                        \"type\": \"string\"\n                    }\n                },\n                \"required\": [\n                    \"runId\",\n                    \"inputId\",\n                    \"headline\",\n                    \"sourceUrl\",\n                    \"sourceDomain\",\n                    \"sequence\",\n                    \"section\",\n                    \"date\",\n                    \"journalist\",\n                    \"language\",\n                    \"reach\"\n                ]\n            }\n        }\n    }\n}"
+                        },
+                        "description": "Parse JSON content to make it easier to access properties.",
+                        "parametersSchema": {
+                          "type": "object",
+                          "required": [
+                            "content"
+                          ],
+                          "properties": {
+                            "content": {
+                              "type": "string",
+                              "format": "textarea",
+                              "title": "Content",
+                              "description": "JSON content to parse"
+                            },
+                            "schema": {
+                              "type": "object",
+                              "x-ms-editor": "schema",
+                              "x-ms-visibility": "important",
+                              "title": "Schema",
+                              "description": "JSON schema for the content"
+                            }
+                          }
+                        }
+                      },
+                      "outcomes": [
+                        {
+                          "id": "default",
+                          "label": "Default",
+                          "outcomeSchema": {
+                            "type": "object",
+                            "description": "Function output"
+                          }
+                        }
+                      ]
+                    },
+                    "measured": {
+                      "width": 240,
+                      "height": 66
+                    },
+                    "selected": false
+                  },
+                  {
+                    "id": "loop-035ba1bc-1d35-41dd-ad34-ad3fdb9d5dcb",
+                    "name": "Process manifest items",
+                    "type": "loop",
+                    "version": 1,
+                    "position": {
+                      "x": 343,
+                      "y": 1139
+                    },
+                    "width": 500,
+                    "height": 406,
+                    "style": {
+                      "width": 500,
+                      "height": 406
+                    },
+                    "data": {
+                      "config": {
+                        "loopType": "foreach",
+                        "foreach": "@body('builtinFunction-60f1d285-bd6a-45aa-b5ba-c2c73acbecdc')?['items']",
+                        "foreachRich": {
+                          "segments": [
+                            {
+                              "type": "token",
+                              "value": "@body('builtinFunction-60f1d285-bd6a-45aa-b5ba-c2c73acbecdc')?['items']",
+                              "tokenRef": {
+                                "type": "step",
+                                "stepId": "builtinFunction-60f1d285-bd6a-45aa-b5ba-c2c73acbecdc",
+                                "stepName": "Parse Manifest",
+                                "outputName": "items",
+                                "outputType": "array",
+                                "outputDisplayName": "Items"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "outcomes": [
+                        {
+                          "id": "default",
+                          "label": "Default"
+                        }
+                      ]
+                    },
+                    "measured": {
+                      "width": 500,
+                      "height": 406
+                    },
+                    "selected": false
+                  },
+                  {
+                    "id": "agent-a42dc9bf-946c-475d-a69a-896c3f9b6c16",
+                    "name": "Resilient Search Agent",
+                    "type": "agent",
+                    "version": 1,
+                    "position": {
+                      "x": 60,
+                      "y": 80
+                    },
+                    "data": {
+                      "config": {
+                        "mode": "invoke",
+                        "instructions": "Process exactly one article search.\n \n Run ID: @{body('builtinFunction-60f1d285-bd6a-45aa-b5ba-c2c73acbecdc')?['runId']}\n Input ID: @{items('Process_manifest_items')?['inputId']}\n Headline: @{items('Process_manifest_items')?['headline']}\n Source URL: @{items('Process_manifest_items')?['sourceUrl']}\n Permitted source domain: @{items('Process_manifest_items')?['sourceDomain']}\n \nSearch for the supplied headline. Accept a result only when the final URL belongs to the permitted source domain and the retrieved title materially matches the headline. Return only the raw JSON object required by your agent instructions. Do not add Markdown or explanatory text.",
+                        "botSchemaName": "crf98_resilientsearchagent_4qX9UF",
+                        "isHitlEscalationEnabled": false,
+                        "webSearchEnabled": false,
+                        "inlineInstructions": "",
+                        "outputMode": "text",
+                        "connectionName": "shared_agentnode",
+                        "inlineModel": "claude-opus-5",
+                        "instructionsRich": {
+                          "segments": [
+                            {
+                              "type": "static",
+                              "value": "Process exactly one article search.\n \n Run ID: "
+                            },
+                            {
+                              "type": "token",
+                              "value": "Run Id",
+                              "tokenRef": {
+                                "type": "step",
+                                "stepId": "builtinFunction-60f1d285-bd6a-45aa-b5ba-c2c73acbecdc",
+                                "stepName": "Parse Manifest",
+                                "outputName": "runId",
+                                "outputDisplayName": "Run Id",
+                                "outputType": "string"
+                              }
+                            },
+                            {
+                              "type": "static",
+                              "value": "\n Input ID: "
+                            },
+                            {
+                              "type": "token",
+                              "value": "Input Id",
+                              "tokenRef": {
+                                "type": "item",
+                                "stepId": "loop-item:loop-035ba1bc-1d35-41dd-ad34-ad3fdb9d5dcb",
+                                "stepName": "Current item",
+                                "outputName": "inputId",
+                                "outputDisplayName": "Input Id",
+                                "outputType": "string",
+                                "loopName": "Process_manifest_items"
+                              }
+                            },
+                            {
+                              "type": "static",
+                              "value": "\n Headline: "
+                            },
+                            {
+                              "type": "token",
+                              "value": "Headline",
+                              "tokenRef": {
+                                "type": "item",
+                                "stepId": "loop-item:loop-035ba1bc-1d35-41dd-ad34-ad3fdb9d5dcb",
+                                "stepName": "Current item",
+                                "outputName": "headline",
+                                "outputDisplayName": "Headline",
+                                "outputType": "string",
+                                "loopName": "Process_manifest_items"
+                              }
+                            },
+                            {
+                              "type": "static",
+                              "value": "\n Source URL: "
+                            },
+                            {
+                              "type": "token",
+                              "value": "Source Url",
+                              "tokenRef": {
+                                "type": "item",
+                                "stepId": "loop-item:loop-035ba1bc-1d35-41dd-ad34-ad3fdb9d5dcb",
+                                "stepName": "Current item",
+                                "outputName": "sourceUrl",
+                                "outputDisplayName": "Source Url",
+                                "outputType": "string",
+                                "loopName": "Process_manifest_items"
+                              }
+                            },
+                            {
+                              "type": "static",
+                              "value": "\n Permitted source domain: "
+                            },
+                            {
+                              "type": "token",
+                              "value": "Source Domain",
+                              "tokenRef": {
+                                "type": "item",
+                                "stepId": "loop-item:loop-035ba1bc-1d35-41dd-ad34-ad3fdb9d5dcb",
+                                "stepName": "Current item",
+                                "outputName": "sourceDomain",
+                                "outputDisplayName": "Source Domain",
+                                "outputType": "string",
+                                "loopName": "Process_manifest_items"
+                              }
+                            },
+                            {
+                              "type": "static",
+                              "value": "\n \nSearch for the supplied headline. Accept a result only when the final URL belongs to the permitted source domain and the retrieved title materially matches the headline. Return only the raw JSON object required by your agent instructions. Do not add Markdown or explanatory text."
+                            }
+                          ]
+                        }
+                      },
+                      "outcomes": [
+                        {
+                          "id": "default",
+                          "label": "Default",
+                          "outcomeSchema": {
+                            "type": "object",
+                            "properties": {
+                              "result": {
+                                "type": "string",
+                                "description": "The agent response text"
+                              },
+                              "status": {
+                                "type": "string",
+                                "description": "The completion status (e.g., Completed)"
+                              },
+                              "conversationId": {
+                                "type": "string",
+                                "description": "Unique identifier for the conversation"
+                              }
+                            },
+                            "required": [
+                              "result",
+                              "conversationId"
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "parentId": "loop-035ba1bc-1d35-41dd-ad34-ad3fdb9d5dcb",
+                    "measured": {
+                      "width": 240,
+                      "height": 66
+                    },
+                    "selected": false
+                  },
+                  {
+                    "id": "builtinFunction-92d54872-7c89-48b2-a5bd-49656a6f59f2",
+                    "name": "Create runId",
+                    "type": "builtinFunction",
+                    "version": 1,
+                    "position": {
+                      "x": 182,
+                      "y": 398
+                    },
+                    "data": {
+                      "config": {
+                        "operationId": "composeNew",
+                        "operationName": "composeNew",
+                        "displayName": "Compose",
+                        "category": "providers/Microsoft.ProcessSimple/operationGroups/DataOperation",
+                        "categoryDisplayName": "Data Operations",
+                        "iconUri": "https://logicappsv2resources.blob.core.windows.net/icons/compose.svg",
+                        "brandColor": "#8c6cff",
+                        "parameters": {
+                          "inputs": "@concat(formatDateTime(triggerOutputs()?['body/receivedDateTime'], 'yyyyMMdd-HHmmss'), '-', replace(replace(replace(substring(triggerOutputs()?['body/id'], sub(length(triggerOutputs()?['body/id']), 12), 12), '/', '-'), '+', '-'), '=', ''))"
+                        },
+                        "description": "Compose outputs from multiple actions into a single output.",
+                        "parametersSchema": {
+                          "type": "object",
+                          "required": [
+                            "inputs"
+                          ],
+                          "properties": {
+                            "inputs": {
+                              "type": "string",
+                              "title": "Inputs",
+                              "description": "Value to compose"
+                            }
+                          }
+                        }
+                      },
+                      "outcomes": [
+                        {
+                          "id": "default",
+                          "label": "Default",
+                          "outcomeSchema": {
+                            "type": "object",
+                            "description": "Function output"
+                          }
+                        }
+                      ]
+                    },
+                    "measured": {
+                      "width": 240,
+                      "height": 66
+                    }
+                  },
+                  {
+                    "id": "agent-fbc2290f-aca3-479c-ae7b-6f3f0edd6b8b",
+                    "name": "Create News Manifest",
+                    "type": "agent",
+                    "version": 1,
+                    "position": {
+                      "x": 182,
+                      "y": 496
+                    },
+                    "data": {
+                      "config": {
+                        "mode": "invoke",
+                        "instructions": "@json(concat('{\"runId\":\"', body('builtinFunction-92d54872-7c89-48b2-a5bd-49656a6f59f2')?['output'], '\",\"sourceMessageId\":\"', triggerOutputs()?['body/id'], '\"}'))",
+                        "botSchemaName": "crf98_bfsimanifestbuilder_zMmb1d",
+                        "isHitlEscalationEnabled": false,
+                        "webSearchEnabled": false,
+                        "inlineInstructions": "",
+                        "outputMode": "text",
+                        "inlineModel": "claude-opus-5",
+                        "connectionName": "shared_agentnode",
+                        "instructionsRich": {
+                          "segments": [
+                            {
+                              "type": "token",
+                              "value": "@json(concat('{\"runId\":\"', body('builtinFunction-92d54872-7c89-48b2-a5bd-49656a6f59f2')?['output'], '\",\"sourceMessageId\":\"', triggerOutputs()?['body/id'], '\"}'))",
+                              "tokenRef": {
+                                "type": "function",
+                                "stepId": "function",
+                                "stepName": "Conversion",
+                                "outputName": "json",
+                                "outputType": "object",
+                                "functionName": "json",
+                                "functionCategory": "conversion",
+                                "rawExpression": "json(concat('{\"runId\":\"', body('builtinFunction-92d54872-7c89-48b2-a5bd-49656a6f59f2')?['output'], '\",\"sourceMessageId\":\"', triggerOutputs()?['body/id'], '\"}'))"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "outcomes": [
+                        {
+                          "id": "default",
+                          "label": "Default",
+                          "outcomeSchema": {
+                            "type": "object",
+                            "properties": {
+                              "result": {
+                                "type": "string",
+                                "description": "The agent response text"
+                              },
+                              "status": {
+                                "type": "string",
+                                "description": "The completion status (e.g., Completed)"
+                              },
+                              "conversationId": {
+                                "type": "string",
+                                "description": "Unique identifier for the conversation"
+                              }
+                            },
+                            "required": [
+                              "result",
+                              "conversationId"
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "measured": {
+                      "width": 240,
+                      "height": 66
+                    }
+                  },
+                  {
+                    "id": "builtinFunction-37400b10-a30b-4d22-92aa-29ec9b4c520a",
+                    "name": "Parse Manifest Builder Response",
+                    "type": "builtinFunction",
+                    "version": 1,
+                    "position": {
+                      "x": 160,
+                      "y": 594
+                    },
+                    "data": {
+                      "config": {
+                        "operationId": "parsejson",
+                        "operationName": "parsejson",
+                        "displayName": "Parse JSON",
+                        "category": "providers/Microsoft.ProcessSimple/operationGroups/DataOperation",
+                        "categoryDisplayName": "Data Operations",
+                        "iconUri": "https://logicappsv2resources.blob.core.windows.net/icons/compose.svg",
+                        "brandColor": "#8c6cff",
+                        "parameters": {
+                          "content": "@body('agent-fbc2290f-aca3-479c-ae7b-6f3f0edd6b8b')?['result']",
+                          "schema": "{\n    \"type\": \"object\",\n    \"properties\": {\n        \"status\": {\n            \"type\": \"string\"\n        },\n        \"runId\": {\n            \"type\": \"string\"\n        },\n        \"manifestFileIdentifier\": {\n            \"type\": \"string\"\n        },\n        \"manifestFilePath\": {\n            \"type\": \"string\"\n        },\n        \"itemCount\": {\n            \"type\": \"integer\"\n        },\n        \"failureReason\": {\n            \"type\": \"string\"\n        }\n    }\n}"
+                        },
+                        "description": "Parse JSON content to make it easier to access properties.",
+                        "parametersSchema": {
+                          "type": "object",
+                          "required": [
+                            "content"
+                          ],
+                          "properties": {
+                            "content": {
+                              "type": "string",
+                              "format": "textarea",
+                              "title": "Content",
+                              "description": "JSON content to parse"
+                            },
+                            "schema": {
+                              "type": "object",
+                              "x-ms-editor": "schema",
+                              "x-ms-visibility": "important",
+                              "title": "Schema",
+                              "description": "JSON schema for the content"
+                            }
+                          }
+                        }
+                      },
+                      "outcomes": [
+                        {
+                          "id": "default",
+                          "label": "Default",
+                          "outcomeSchema": {
+                            "type": "object",
+                            "description": "Function output"
+                          }
+                        }
+                      ]
+                    },
+                    "measured": {
+                      "width": 284,
+                      "height": 66
+                    }
+                  },
+                  {
+                    "id": "ifElse-b9ea041e-4513-430f-a76b-65ce8ce49915",
+                    "name": "If/Else",
+                    "type": "ifElse",
+                    "version": 1,
+                    "position": {
+                      "x": 182,
+                      "y": 692
+                    },
+                    "data": {
+                      "config": {
+                        "conditions": [
+                          {
+                            "id": "cdb8ac12-e62a-4b08-ac93-cb0f2f605a1f",
+                            "name": "If",
+                            "expression": "{\n  \"and\": [\n    {\n      \"equals\": [\n        \"@body('builtinFunction-37400b10-a30b-4d22-92aa-29ec9b4c520a')?['status']\",\n        \"ready\"\n      ]\n    }\n  ]\n}"
+                          }
+                        ]
+                      },
+                      "outcomes": [
+                        {
+                          "id": "condition:cdb8ac12-e62a-4b08-ac93-cb0f2f605a1f",
+                          "label": "If"
+                        },
+                        {
+                          "id": "else",
+                          "label": "Else"
+                        }
+                      ]
+                    },
+                    "measured": {
+                      "width": 240,
+                      "height": 121
+                    }
+                  },
+                  {
+                    "id": "end-4d40683a-56d9-44f8-b170-a4285da078ef",
+                    "name": "End",
+                    "type": "end",
+                    "version": 1,
+                    "position": {
+                      "x": 100,
+                      "y": 845
+                    },
+                    "data": {
+                      "config": {
+                        "runStatus": "Failed"
+                      },
+                      "outcomes": []
+                    },
+                    "measured": {
+                      "width": 240,
+                      "height": 66
+                    }
+                  },
+                  {
+                    "id": "variable-dfb022f9-8a72-4f0e-aa8a-ab669ea28575",
+                    "name": "searchResults",
+                    "type": "variable",
+                    "version": 1,
+                    "position": {
+                      "x": 400,
+                      "y": 1041
+                    },
+                    "data": {
+                      "config": {
+                        "assignments": [
+                          {
+                            "id": "1391a6eb-f7e8-4ff7-962c-e1aedca9dd80",
+                            "variableName": "searchResults",
+                            "mode": "initialize",
+                            "type": "array",
+                            "value": "@json('[]')",
+                            "valueRich": {
+                              "segments": [
+                                {
+                                  "type": "token",
+                                  "value": "@json('[]')",
+                                  "tokenRef": {
+                                    "type": "function",
+                                    "stepId": "function",
+                                    "stepName": "Conversion",
+                                    "outputName": "json",
+                                    "outputType": "object",
+                                    "functionName": "json",
+                                    "functionCategory": "conversion",
+                                    "rawExpression": "json('[]')"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      },
+                      "outcomes": [
+                        {
+                          "id": "default",
+                          "label": "Default",
+                          "outcomeSchema": {
+                            "type": "object",
+                            "properties": {},
+                            "description": "Variables set by this node"
+                          }
+                        }
+                      ]
+                    },
+                    "measured": {
+                      "width": 240,
+                      "height": 66
+                    },
+                    "selected": false,
+                    "dragging": false
+                  },
+                  {
+                    "id": "builtinFunction-4a1b5ea5-29c6-40c8-a15d-7f83220bf83b",
+                    "name": "Parse Search Result",
+                    "type": "builtinFunction",
+                    "version": 1,
+                    "position": {
+                      "x": 60,
+                      "y": 186
+                    },
+                    "data": {
+                      "config": {
+                        "operationId": "parsejson",
+                        "operationName": "parsejson",
+                        "displayName": "Parse JSON",
+                        "category": "providers/Microsoft.ProcessSimple/operationGroups/DataOperation",
+                        "categoryDisplayName": "Data Operations",
+                        "iconUri": "https://logicappsv2resources.blob.core.windows.net/icons/compose.svg",
+                        "brandColor": "#8c6cff",
+                        "parameters": {
+                          "content": "@body('agent-a42dc9bf-946c-475d-a69a-896c3f9b6c16')?['result']",
+                          "schema": "{\n    \"type\": \"object\",\n    \"properties\": {\n        \"headline\": {\n            \"type\": \"string\"\n        },\n        \"resolvedUrl\": {\n            \"type\": [\n                \"string\",\n                \"null\"\n            ]\n        },\n        \"resolvedTitle\": {\n            \"type\": [\n                \"string\",\n                \"null\"\n            ]\n        },\n        \"finalHost\": {\n            \"type\": [\n                \"string\",\n                \"null\"\n            ]\n        },\n        \"publishedDate\": {\n            \"type\": [\n                \"string\",\n                \"null\"\n            ]\n        },\n        \"journalist\": {\n            \"type\": [\n                \"string\",\n                \"null\"\n            ]\n        },\n        \"language\": {\n            \"type\": [\n                \"string\",\n                \"null\"\n            ]\n        },\n        \"summary\": {\n            \"type\": [\n                \"string\",\n                \"null\"\n            ]\n        },\n        \"keyFacts\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"string\"\n            }\n        },\n        \"searchRoundsUsed\": {\n            \"type\": \"integer\"\n        },\n        \"failureCategory\": {\n            \"type\": [\n                \"string\",\n                \"null\"\n            ]\n        },\n        \"reason\": {\n            \"type\": [\n                \"string\",\n                \"null\"\n            ]\n        }\n    }\n}"
+                        },
+                        "description": "Parse JSON content to make it easier to access properties.",
+                        "parametersSchema": {
+                          "type": "object",
+                          "required": [
+                            "content"
+                          ],
+                          "properties": {
+                            "content": {
+                              "type": "string",
+                              "format": "textarea",
+                              "title": "Content",
+                              "description": "JSON content to parse"
+                            },
+                            "schema": {
+                              "type": "object",
+                              "x-ms-editor": "schema",
+                              "x-ms-visibility": "important",
+                              "title": "Schema",
+                              "description": "JSON schema for the content"
+                            }
+                          }
+                        }
+                      },
+                      "outcomes": [
+                        {
+                          "id": "default",
+                          "label": "Default",
+                          "outcomeSchema": {
+                            "type": "object",
+                            "description": "Function output"
+                          }
+                        }
+                      ]
+                    },
+                    "parentId": "loop-035ba1bc-1d35-41dd-ad34-ad3fdb9d5dcb",
+                    "measured": {
+                      "width": 240,
+                      "height": 66
+                    },
+                    "selected": false
+                  },
+                  {
+                    "id": "variable-44ba78ae-22f9-450e-81b4-ceb45a8971ed",
+                    "name": "Append to array variable",
+                    "type": "variable",
+                    "version": 1,
+                    "position": {
+                      "x": 60,
+                      "y": 292
+                    },
+                    "data": {
+                      "config": {
+                        "assignments": [
+                          {
+                            "id": "2c191b24-36c4-4e73-b2d3-c3b8d5de94ce",
+                            "variableName": "searchResults",
+                            "mode": "appendToArray",
+                            "value": "Value expression: body('builtinFunction-4a1b5ea5-29c6-40c8-a15d-7f83220bf83b')",
+                            "type": "array",
+                            "valueRich": {
+                              "segments": [
+                                {
+                                  "type": "static",
+                                  "value": "Value expression: body('builtinFunction-4a1b5ea5-29c6-40c8-a15d-7f83220bf83b')"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      },
+                      "outcomes": [
+                        {
+                          "id": "default",
+                          "label": "Default",
+                          "outcomeSchema": {
+                            "type": "object",
+                            "properties": {},
+                            "description": "Variables set by this node"
+                          }
+                        }
+                      ]
+                    },
+                    "parentId": "loop-035ba1bc-1d35-41dd-ad34-ad3fdb9d5dcb",
+                    "measured": {
+                      "width": 240,
+                      "height": 66
+                    },
+                    "selected": false
+                  },
+                  {
+                    "id": "connector-4e6dea09-1fe2-422e-97e3-f415f0ecdacf",
+                    "name": "Create Consolidated Results JSON",
+                    "type": "connector",
+                    "version": 1,
+                    "position": {
+                      "x": 553.754648423796,
+                      "y": 1663.6011188793664
+                    },
+                    "data": {
+                      "config": {
+                        "apiName": "shared_sharepointonline",
+                        "displayName": "SharePoint",
+                        "iconUri": "https://static.powerapps.com/resource/ppcr/releases/v1.0.1827/1.0.1827.4913/sharepointonline/icon.png",
+                        "brandColor": "",
+                        "operationName": "CreateFile",
+                        "operationType": "OpenApiConnection",
+                        "parametersSchema": {
+                          "type": "object",
+                          "properties": {
+                            "dataset": {
+                              "type": "string",
+                              "title": "Site Address",
+                              "x-ms-dynamic-list": {
+                                "operationId": "GetDataSets",
+                                "parameters": {},
+                                "itemsPath": "value",
+                                "itemValuePath": "Name",
+                                "itemTitlePath": "DisplayName"
+                              },
+                              "description": "Example: https://contoso.sharepoint.com/sites/sitename.",
+                              "minLength": 1,
+                              "x-ms-property-name-alias": "dataset"
+                            },
+                            "folderPath": {
+                              "type": "string",
+                              "title": "Folder Path",
+                              "x-ms-dynamic-tree": {
+                                "settings": {
+                                  "canSelectParentNodes": true,
+                                  "canSelectLeafNodes": false
+                                },
+                                "open": {
+                                  "operationId": "ListAllRootFolders",
+                                  "parameters": {
+                                    "dataset": {
+                                      "parameterReference": "dataset",
+                                      "required": true
+                                    }
+                                  },
+                                  "itemValuePath": "Path",
+                                  "itemTitlePath": "DisplayName",
+                                  "itemFullTitlePath": "Path",
+                                  "itemIsParent": "(IsFolder eq true)"
+                                },
+                                "browse": {
+                                  "operationId": "ListFolder",
+                                  "parameters": {
+                                    "dataset": {
+                                      "parameterReference": "dataset",
+                                      "required": true
+                                    },
+                                    "id": {
+                                      "selectedItemValuePath": "Id"
+                                    }
+                                  },
+                                  "itemValuePath": "Path",
+                                  "itemTitlePath": "DisplayName",
+                                  "itemFullTitlePath": "Path",
+                                  "itemIsParent": "(IsFolder eq true)"
+                                }
+                              },
+                              "description": "Must start with an existing library. Add folders if needed.",
+                              "x-ms-property-name-alias": "folderPath"
+                            },
+                            "name": {
+                              "type": "string",
+                              "title": "File Name",
+                              "description": "Name of the file.",
+                              "x-ms-property-name-alias": "name"
+                            },
+                            "body": {
+                              "type": "string",
+                              "title": "File Content",
+                              "format": "binary",
+                              "description": "Content of the file.",
+                              "x-ms-property-name-alias": "body"
+                            }
+                          },
+                          "required": [
+                            "body",
+                            "dataset",
+                            "folderPath",
+                            "name"
+                          ]
+                        },
+                        "connectionName": "shared_sharepointonline",
+                        "parameters": {
+                          "dataset": "https://m365cpi17930677.sharepoint.com",
+                          "folderPath": "/Shared Documents/BFL Web Search/Outbound",
+                          "name": "@concat(outputs('builtinFunction-92d54872-7c89-48b2-a5bd-49656a6f59f2'), '_consolidated.json')",
+                          "body": "@variables('searchResults')"
+                        }
+                      },
+                      "outcomes": [
+                        {
+                          "id": "default",
+                          "label": "Default",
+                          "outcomeSchema": {
+                            "type": "object",
+                            "properties": {
+                              "body": {
+                                "type": "object",
+                                "properties": {
+                                  "ItemId": {
+                                    "type": "integer",
+                                    "format": "int64",
+                                    "description": "The value that can be used to Get or Update file properties in libraries.",
+                                    "x-ms-property-name-alias": "body/ItemId"
+                                  },
+                                  "Id": {
+                                    "type": "string",
+                                    "description": "The unique id of the file or folder.",
+                                    "x-ms-property-name-alias": "body/Id"
+                                  },
+                                  "Name": {
+                                    "type": "string",
+                                    "description": "The name of the file or folder.",
+                                    "x-ms-property-name-alias": "body/Name"
+                                  },
+                                  "DisplayName": {
+                                    "type": "string",
+                                    "description": "The display name of the file or folder.",
+                                    "x-ms-property-name-alias": "body/DisplayName"
+                                  },
+                                  "Path": {
+                                    "type": "string",
+                                    "description": "The path of the file or folder.",
+                                    "x-ms-property-name-alias": "body/Path"
+                                  },
+                                  "LastModified": {
+                                    "type": "string",
+                                    "format": "date-time",
+                                    "description": "The date and time the file or folder was last modified.",
+                                    "x-ms-property-name-alias": "body/LastModified"
+                                  },
+                                  "Size": {
+                                    "type": "integer",
+                                    "format": "int64",
+                                    "description": "The size of the file or folder.",
+                                    "x-ms-property-name-alias": "body/Size"
+                                  },
+                                  "MediaType": {
+                                    "type": "string",
+                                    "description": "The media type of the file or folder.",
+                                    "x-ms-property-name-alias": "body/MediaType"
+                                  },
+                                  "IsFolder": {
+                                    "type": "boolean",
+                                    "description": "A boolean value (true, false) to indicate whether or not the blob is a folder.",
+                                    "x-ms-property-name-alias": "body/IsFolder"
+                                  },
+                                  "ETag": {
+                                    "type": "string",
+                                    "description": "The etag of the file or folder.",
+                                    "x-ms-property-name-alias": "body/ETag"
+                                  },
+                                  "FileLocator": {
+                                    "type": "string",
+                                    "description": "The filelocator of the file or folder.",
+                                    "x-ms-property-name-alias": "body/FileLocator"
+                                  }
+                                },
+                                "required": [],
+                                "description": "The SharePoint version of the BlobMetadataResponse extends the object by adding some additional fields that we want serialized",
+                                "x-ms-property-name-alias": "body"
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "measured": {
+                      "width": 294,
+                      "height": 66
+                    },
+                    "dragging": false,
+                    "selected": true
+                  }
+                ],
+                "edges": [
+                  {
+                    "id": "edge-connector-513720e7-2746-466a-9aa4-dcfa5881f09a-builtinFunction-60f1d285-bd6a-45aa-b5ba-c2c73acbecdc",
+                    "source": "connector-513720e7-2746-466a-9aa4-dcfa5881f09a",
+                    "target": "builtinFunction-60f1d285-bd6a-45aa-b5ba-c2c73acbecdc"
+                  },
+                  {
+                    "id": "edge-loop-035ba1bc-1d35-41dd-ad34-ad3fdb9d5dcb-internal-source-agent-a42dc9bf-946c-475d-a69a-896c3f9b6c16",
+                    "source": "loop-035ba1bc-1d35-41dd-ad34-ad3fdb9d5dcb",
+                    "target": "agent-a42dc9bf-946c-475d-a69a-896c3f9b6c16",
+                    "sourceHandle": "internal-source"
+                  },
+                  {
+                    "id": "edge-start-54051990-dcc5-476b-9b9f-ba701f54ce3b-builtinFunction-92d54872-7c89-48b2-a5bd-49656a6f59f2",
+                    "source": "start-54051990-dcc5-476b-9b9f-ba701f54ce3b",
+                    "target": "builtinFunction-92d54872-7c89-48b2-a5bd-49656a6f59f2"
+                  },
+                  {
+                    "id": "edge-builtinFunction-92d54872-7c89-48b2-a5bd-49656a6f59f2-agent-fbc2290f-aca3-479c-ae7b-6f3f0edd6b8b",
+                    "source": "builtinFunction-92d54872-7c89-48b2-a5bd-49656a6f59f2",
+                    "target": "agent-fbc2290f-aca3-479c-ae7b-6f3f0edd6b8b"
+                  },
+                  {
+                    "id": "edge-agent-fbc2290f-aca3-479c-ae7b-6f3f0edd6b8b-builtinFunction-37400b10-a30b-4d22-92aa-29ec9b4c520a",
+                    "source": "agent-fbc2290f-aca3-479c-ae7b-6f3f0edd6b8b",
+                    "target": "builtinFunction-37400b10-a30b-4d22-92aa-29ec9b4c520a"
+                  },
+                  {
+                    "id": "edge-builtinFunction-37400b10-a30b-4d22-92aa-29ec9b4c520a-ifElse-b9ea041e-4513-430f-a76b-65ce8ce49915",
+                    "source": "builtinFunction-37400b10-a30b-4d22-92aa-29ec9b4c520a",
+                    "target": "ifElse-b9ea041e-4513-430f-a76b-65ce8ce49915"
+                  },
+                  {
+                    "id": "edge-ifElse-b9ea041e-4513-430f-a76b-65ce8ce49915-connector-513720e7-2746-466a-9aa4-dcfa5881f09a",
+                    "source": "ifElse-b9ea041e-4513-430f-a76b-65ce8ce49915",
+                    "target": "connector-513720e7-2746-466a-9aa4-dcfa5881f09a"
+                  },
+                  {
+                    "id": "edge-ifElse-b9ea041e-4513-430f-a76b-65ce8ce49915-else-end-4d40683a-56d9-44f8-b170-a4285da078ef",
+                    "source": "ifElse-b9ea041e-4513-430f-a76b-65ce8ce49915",
+                    "target": "end-4d40683a-56d9-44f8-b170-a4285da078ef",
+                    "sourceHandle": "else"
+                  },
+                  {
+                    "id": "edge-builtinFunction-60f1d285-bd6a-45aa-b5ba-c2c73acbecdc-variable-dfb022f9-8a72-4f0e-aa8a-ab669ea28575",
+                    "source": "builtinFunction-60f1d285-bd6a-45aa-b5ba-c2c73acbecdc",
+                    "target": "variable-dfb022f9-8a72-4f0e-aa8a-ab669ea28575"
+                  },
+                  {
+                    "id": "edge-variable-dfb022f9-8a72-4f0e-aa8a-ab669ea28575-loop-035ba1bc-1d35-41dd-ad34-ad3fdb9d5dcb-external-input",
+                    "source": "variable-dfb022f9-8a72-4f0e-aa8a-ab669ea28575",
+                    "target": "loop-035ba1bc-1d35-41dd-ad34-ad3fdb9d5dcb",
+                    "targetHandle": "external-input"
+                  },
+                  {
+                    "id": "edge-agent-a42dc9bf-946c-475d-a69a-896c3f9b6c16-builtinFunction-4a1b5ea5-29c6-40c8-a15d-7f83220bf83b",
+                    "source": "agent-a42dc9bf-946c-475d-a69a-896c3f9b6c16",
+                    "target": "builtinFunction-4a1b5ea5-29c6-40c8-a15d-7f83220bf83b"
+                  },
+                  {
+                    "id": "edge-builtinFunction-4a1b5ea5-29c6-40c8-a15d-7f83220bf83b-variable-44ba78ae-22f9-450e-81b4-ceb45a8971ed",
+                    "source": "builtinFunction-4a1b5ea5-29c6-40c8-a15d-7f83220bf83b",
+                    "target": "variable-44ba78ae-22f9-450e-81b4-ceb45a8971ed"
+                  },
+                  {
+                    "id": "edge-variable-44ba78ae-22f9-450e-81b4-ceb45a8971ed-loop-035ba1bc-1d35-41dd-ad34-ad3fdb9d5dcb-internal-target",
+                    "source": "variable-44ba78ae-22f9-450e-81b4-ceb45a8971ed",
+                    "target": "loop-035ba1bc-1d35-41dd-ad34-ad3fdb9d5dcb",
+                    "targetHandle": "internal-target"
+                  },
+                  {
+                    "id": "edge-loop-035ba1bc-1d35-41dd-ad34-ad3fdb9d5dcb-external-output-connector-4e6dea09-1fe2-422e-97e3-f415f0ecdacf-input",
+                    "source": "loop-035ba1bc-1d35-41dd-ad34-ad3fdb9d5dcb",
+                    "target": "connector-4e6dea09-1fe2-422e-97e3-f415f0ecdacf",
+                    "sourceHandle": "external-output",
+                    "targetHandle": "input"
+                  }
+                ],
+                "connectionReferences": {
+                  "shared_sharepointonline": {
+                    "api": {
+                      "name": "shared_sharepointonline"
+                    },
+                    "connection": {
+                      "connectionReferenceLogicalName": "new_sharedsharepointonline_0b04668f"
+                    },
+                    "runtimeSource": "embedded",
+                    "connectionName": "shared-sharepointonl-76a0449b-f426-4943-8910-4493d2760bdb"
+                  },
+                  "shared_agentnode": {
+                    "api": {
+                      "name": "shared_agentnode"
+                    },
+                    "connection": {
+                      "connectionReferenceLogicalName": "new_sharedagentnode_9b0ff22f"
+                    },
+                    "runtimeSource": "embedded",
+                    "connectionName": "shared-agentnode-35a58582-365d-48e1-b2a4-fad7dde64dcc"
+                  },
+                  "shared_office365-1": {
+                    "api": {
+                      "name": "shared_office365"
+                    },
+                    "connection": {
+                      "connectionReferenceLogicalName": "new_sharedoffice365_ab2ce0cd"
+                    },
+                    "runtimeSource": "embedded",
+                    "connectionName": "shared-office365-04ad18a2-919b-4625-a042-dc253ce6fd5a"
+                  }
+                }
+              },
+              "nodeActionMapping": {
+                "builtinFunction-92d54872-7c89-48b2-a5bd-49656a6f59f2": [
+                  "Create_runId"
+                ],
+                "agent-fbc2290f-aca3-479c-ae7b-6f3f0edd6b8b": [
+                  "Create_News_Manifest"
+                ],
+                "builtinFunction-37400b10-a30b-4d22-92aa-29ec9b4c520a": [
+                  "Parse_Manifest_Builder_Response"
+                ],
+                "end-4d40683a-56d9-44f8-b170-a4285da078ef": [
+                  "end-4d40683a-56d9-44f8-b170-a4285da078ef"
+                ],
+                "ifElse-b9ea041e-4513-430f-a76b-65ce8ce49915": [
+                  "If_Else"
+                ],
+                "connector-513720e7-2746-466a-9aa4-dcfa5881f09a": [
+                  "Get_Manifest"
+                ],
+                "builtinFunction-60f1d285-bd6a-45aa-b5ba-c2c73acbecdc": [
+                  "Parse_Manifest"
+                ],
+                "variable-dfb022f9-8a72-4f0e-aa8a-ab669ea28575": [
+                  "searchResults"
+                ],
+                "agent-a42dc9bf-946c-475d-a69a-896c3f9b6c16": [
+                  "Resilient_Search_Agent"
+                ],
+                "builtinFunction-4a1b5ea5-29c6-40c8-a15d-7f83220bf83b": [
+                  "Parse_Search_Result"
+                ],
+                "variable-44ba78ae-22f9-450e-81b4-ceb45a8971ed": [
+                  "Append_to_array_variable"
+                ],
+                "loop-035ba1bc-1d35-41dd-ad34-ad3fdb9d5dcb": [
+                  "Process_manifest_items"
+                ],
+                "connector-4e6dea09-1fe2-422e-97e3-f415f0ecdacf": [
+                  "Create_Consolidated_Results_JSON"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "actions": {
+        "Create_runId": {
+          "type": "Compose",
+          "inputs": "@concat(formatDateTime(triggerOutputs()?['body/receivedDateTime'], 'yyyyMMdd-HHmmss'), '-', replace(replace(replace(substring(triggerOutputs()?['body/id'], sub(length(triggerOutputs()?['body/id']), 12), 12), '/', '-'), '+', '-'), '=', ''))",
+          "metadata": {
+            "description": "Create runId",
+            "nodeId": "builtinFunction-92d54872-7c89-48b2-a5bd-49656a6f59f2"
+          }
+        },
+        "Create_News_Manifest": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "body/prompt": "@{json(concat('{\"runId\":\"', body('Create_runId')?['output'], '\",\"sourceMessageId\":\"', triggerOutputs()?['body/id'], '\"}'))}",
+              "body/agentId": "crf98_bfsimanifestbuilder_zMmb1d"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_agentnode",
+              "connectionName": "shared_agentnode",
+              "operationId": "InvokeAgent"
+            }
+          },
+          "runAfter": {
+            "Create_runId": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "description": "Create News Manifest",
+            "nodeId": "agent-fbc2290f-aca3-479c-ae7b-6f3f0edd6b8b"
+          }
+        },
+        "Parse_Manifest_Builder_Response": {
+          "type": "ParseJson",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                },
+                "runId": {
+                  "type": "string"
+                },
+                "manifestFileIdentifier": {
+                  "type": "string"
+                },
+                "manifestFilePath": {
+                  "type": "string"
+                },
+                "itemCount": {
+                  "type": "integer"
+                },
+                "failureReason": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": "@body('Create_News_Manifest')?['result']"
+          },
+          "runAfter": {
+            "Create_News_Manifest": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "description": "Parse Manifest Builder Response",
+            "nodeId": "builtinFunction-37400b10-a30b-4d22-92aa-29ec9b4c520a"
+          }
+        },
+        "If_Else": {
+          "type": "If",
+          "expression": {
+            "and": [
+              {
+                "equals": [
+                  "@body('Parse_Manifest_Builder_Response')?['status']",
+                  "ready"
+                ]
+              }
+            ]
+          },
+          "actions": {},
+          "else": {
+            "actions": {
+              "end-4d40683a-56d9-44f8-b170-a4285da078ef": {
+                "type": "Terminate",
+                "inputs": {
+                  "runStatus": "Failed"
+                },
+                "metadata": {
+                  "description": "End",
+                  "nodeId": "end-4d40683a-56d9-44f8-b170-a4285da078ef"
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Parse_Manifest_Builder_Response": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "description": "If/Else",
+            "nodeId": "ifElse-b9ea041e-4513-430f-a76b-65ce8ce49915"
+          }
+        },
+        "Get_Manifest": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "inferContentType": true,
+              "dataset": "https://m365cpi17930677.sharepoint.com",
+              "path": "@body('Parse_Manifest_Builder_Response')?['manifestFilePath']"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+              "connectionName": "shared_sharepointonline",
+              "operationId": "GetFileContentByPath"
+            }
+          },
+          "runAfter": {
+            "If_Else": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "description": "Get Manifest",
+            "nodeId": "connector-513720e7-2746-466a-9aa4-dcfa5881f09a"
+          }
+        },
+        "Parse_Manifest": {
+          "type": "ParseJson",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "runId": {
+                  "type": "string"
+                },
+                "sourceFile": {
+                  "type": "string"
+                },
+                "itemCount": {
+                  "type": "integer"
+                },
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "runId": {
+                        "type": "string"
+                      },
+                      "inputId": {
+                        "type": "string"
+                      },
+                      "headline": {
+                        "type": "string"
+                      },
+                      "sourceUrl": {
+                        "type": "string"
+                      },
+                      "sourceDomain": {
+                        "type": "string"
+                      },
+                      "sequence": {
+                        "type": "string"
+                      },
+                      "section": {
+                        "type": "string"
+                      },
+                      "date": {
+                        "type": "string"
+                      },
+                      "journalist": {
+                        "type": "string"
+                      },
+                      "language": {
+                        "type": "string"
+                      },
+                      "reach": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "runId",
+                      "inputId",
+                      "headline",
+                      "sourceUrl",
+                      "sourceDomain",
+                      "sequence",
+                      "section",
+                      "date",
+                      "journalist",
+                      "language",
+                      "reach"
+                    ]
+                  }
+                }
+              }
+            },
+            "content": "@body('Get_Manifest')"
+          },
+          "runAfter": {
+            "Get_Manifest": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "description": "Parse Manifest",
+            "nodeId": "builtinFunction-60f1d285-bd6a-45aa-b5ba-c2c73acbecdc"
+          }
+        },
+        "searchResults": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "searchResults",
+                "type": "Array",
+                "value": "@json('[]')"
+              }
+            ]
+          },
+          "runAfter": {
+            "Parse_Manifest": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "description": "searchResults",
+            "nodeId": "variable-dfb022f9-8a72-4f0e-aa8a-ab669ea28575"
+          }
+        },
+        "Process_manifest_items": {
+          "type": "Foreach",
+          "foreach": "@coalesce(body('Parse_Manifest')?['items'], json('[]'))",
+          "actions": {
+            "Resilient_Search_Agent": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "body/prompt": "Process exactly one article search.\n \n Run ID: @{body('Parse_Manifest')?['runId']}\n Input ID: @{items('Process_manifest_items')?['inputId']}\n Headline: @{items('Process_manifest_items')?['headline']}\n Source URL: @{items('Process_manifest_items')?['sourceUrl']}\n Permitted source domain: @{items('Process_manifest_items')?['sourceDomain']}\n \nSearch for the supplied headline. Accept a result only when the final URL belongs to the permitted source domain and the retrieved title materially matches the headline. Return only the raw JSON object required by your agent instructions. Do not add Markdown or explanatory text.",
+                  "body/agentId": "crf98_resilientsearchagent_4qX9UF"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_agentnode",
+                  "connectionName": "shared_agentnode",
+                  "operationId": "InvokeAgent"
+                }
+              },
+              "metadata": {
+                "description": "Resilient Search Agent",
+                "nodeId": "agent-a42dc9bf-946c-475d-a69a-896c3f9b6c16"
+              }
+            },
+            "Parse_Search_Result": {
+              "type": "ParseJson",
+              "inputs": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "headline": {
+                      "type": "string"
+                    },
+                    "resolvedUrl": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "resolvedTitle": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "finalHost": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "publishedDate": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "journalist": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "language": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "summary": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "keyFacts": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "searchRoundsUsed": {
+                      "type": "integer"
+                    },
+                    "failureCategory": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "reason": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                },
+                "content": "@body('Resilient_Search_Agent')?['result']"
+              },
+              "runAfter": {
+                "Resilient_Search_Agent": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "description": "Parse Search Result",
+                "nodeId": "builtinFunction-4a1b5ea5-29c6-40c8-a15d-7f83220bf83b"
+              }
+            },
+            "Append_to_array_variable": {
+              "type": "AppendToArrayVariable",
+              "inputs": {
+                "name": "searchResults",
+                "value": "Value expression: body('Parse_Search_Result')"
+              },
+              "runAfter": {
+                "Parse_Search_Result": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "description": "Append to array variable",
+                "nodeId": "variable-44ba78ae-22f9-450e-81b4-ceb45a8971ed"
+              }
+            }
+          },
+          "metadata": {
+            "description": "Process manifest items",
+            "nodeId": "loop-035ba1bc-1d35-41dd-ad34-ad3fdb9d5dcb"
+          },
+          "runAfter": {
+            "searchResults": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Create_Consolidated_Results_JSON": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "dataset": "https://m365cpi17930677.sharepoint.com",
+              "folderPath": "/Shared Documents/BFL Web Search/Outbound",
+              "name": "@concat(outputs('Create_runId'), '_consolidated.json')",
+              "body": "@variables('searchResults')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+              "connectionName": "shared_sharepointonline",
+              "operationId": "CreateFile"
+            }
+          },
+          "runAfter": {
+            "Process_manifest_items": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "description": "Create Consolidated Results JSON",
+            "nodeId": "connector-4e6dea09-1fe2-422e-97e3-f415f0ecdacf"
+          }
+        }
+      },
+      "outputs": {},
+      "metadata": {
+        "telemetryMetadata": {
+          "creationSource": "WorkflowDesigner",
+          "modifiedSources": "WorkflowDesigner"
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

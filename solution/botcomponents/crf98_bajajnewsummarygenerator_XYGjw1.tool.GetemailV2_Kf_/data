@@ -1,0 +1,5 @@
+kind: ConnectorTool
+authMode: Invoker
+connectionReference: crf98_bajajnewsummarygenerator_XYGjw1.cr.shared_office365
+connectorId: /providers/Microsoft.PowerApps/apis/shared_office365
+operationId: GetEmailV2

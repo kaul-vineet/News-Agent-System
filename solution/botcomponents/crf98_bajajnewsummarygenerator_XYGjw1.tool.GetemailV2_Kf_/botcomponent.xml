@@ -1,0 +1,11 @@
+<botcomponent schemaname="crf98_bajajnewsummarygenerator_XYGjw1.tool.GetemailV2_Kf_">
+  <componenttype>9</componenttype>
+  <description>Read the complete Outlook message selected for BFSI newsletter processing. Return its full HTML body, subject, and message identifiers. This operation gets an email by id.</description>
+  <iscustomizable>0</iscustomizable>
+  <name>Get email (V2)</name>
+  <parentbotid>
+    <schemaname>crf98_bajajnewsummarygenerator_XYGjw1</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

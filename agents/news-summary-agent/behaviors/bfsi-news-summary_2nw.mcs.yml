@@ -1,0 +1,6 @@
+mcs.metadata:
+  componentName: bfsi-news-summary
+  description: Validates one SharePoint consolidated-results array for a runId, deduplicates retrieved rows by business event, and renders the bundled Outlook-safe executive newsletter for the calling agent to deliver.
+kind: InlineAgentSkill
+content: <!-- bic:bundle=crf98_bajajnewsummarygenerator_XYGjw1.file.bfsinewssummaryskillzip_BCXEp -->
+authoringSource: Upload

@@ -1,0 +1,11 @@
+<botcomponent_connectionreferenceset>
+  <botcomponent_connectionreference botcomponentid.schemaname="crf98_bajajnewsummarygenerator_XYGjw1.tool.GetemailV2_Kf_" connectionreferenceid.connectionreferencelogicalname="crf98_bajajnewsummarygenerator_XYGjw1.cr.shared_office365">
+    <iscustomizable>1</iscustomizable>
+  </botcomponent_connectionreference>
+  <botcomponent_connectionreference botcomponentid.schemaname="crf98_bfsimanifestbuilder_zMmb1d.tool.Createfile_g_-" connectionreferenceid.connectionreferencelogicalname="crf98_bfsimanifestbuilder_zMmb1d.cr.shared_sharepointonline">
+    <iscustomizable>1</iscustomizable>
+  </botcomponent_connectionreference>
+  <botcomponent_connectionreference botcomponentid.schemaname="crf98_bfsimanifestbuilder_zMmb1d.tool.GetemailV2_RIw" connectionreferenceid.connectionreferencelogicalname="crf98_bfsimanifestbuilder_zMmb1d.cr.shared_office365">
+    <iscustomizable>1</iscustomizable>
+  </botcomponent_connectionreference>
+</botcomponent_connectionreferenceset>

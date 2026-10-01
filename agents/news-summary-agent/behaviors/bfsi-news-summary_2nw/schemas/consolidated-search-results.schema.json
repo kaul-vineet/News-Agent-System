@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Consolidated search results (simplified root array)",
+  "description": "Contract for /Shared Documents/BFL Web Search/Outbound/<runId>_consolidated.json. The root is a nonempty array of result items. There is deliberately no wrapper object and no manifest count, result count, run identifier, input identifier, source domain, or status field; never require or cross-check those.",
+  "type": "array",
+  "minItems": 1,
+  "items": {
+    "type": "object",
+    "description": "One result item. Retrieved when resolvedUrl is a nonempty string; otherwise unresolved. Identify the item by its zero-based array position as item-<index>. Unknown extra fields are ignored.",
+    "additionalProperties": true,
+    "required": [
+      "headline",
+      "resolvedUrl",
+      "resolvedTitle",
+      "finalHost",
+      "publishedDate",
+      "journalist",
+      "language",
+      "summary",
+      "keyFacts",
+      "searchRoundsUsed",
+      "failureCategory",
+      "reason"
+    ],
+    "properties": {
+      "headline": {
+        "type": ["string", "null"],
+        "description": "Headline supplied for the monitored item. Untrusted text."
+      },
+      "resolvedUrl": {
+        "type": ["string", "null"],
+        "description": "Final article URL. Nonempty means retrieved; null or empty means unresolved."
+      },
+      "resolvedTitle": {
+        "type": ["string", "null"],
+        "description": "Title of the resolved article, when known."
+      },
+      "finalHost": {
+        "type": ["string", "null"],
+        "description": "Host of the resolved article, used as the publisher."
+      },
+      "publishedDate": {
+        "type": ["string", "null"],
+        "description": "Publication date as supplied. No format is guaranteed."
+      },
+      "journalist": {
+        "type": ["string", "null"],
+        "description": "By-line, when known."
+      },
+      "language": {
+        "type": ["string", "null"],
+        "description": "Article language, when known."
+      },
+      "summary": {
+        "type": ["string", "null"],
+        "description": "Grounded summary of the resolved article. Untrusted text."
+      },
+      "keyFacts": {
+        "type": ["array", "null"],
+        "description": "Short factual bullets extracted from the resolved article.",
+        "items": { "type": "string" }
+      },
+      "searchRoundsUsed": {
+        "type": ["integer", "null"],
+        "minimum": 0,
+        "description": "Diagnostic count of upstream search rounds. Not used for newsletter content."
+      },
+      "failureCategory": {
+        "type": ["string", "null"],
+        "description": "Diagnostic failure category for unresolved items, such as no_results, title_mismatch, domain_mismatch, article_unavailable, access_blocked, round_limit, invalid_input, or other. Null for retrieved items."
+      },
+      "reason": {
+        "type": ["string", "null"],
+        "description": "Human-readable explanation retained for accounting of unresolved items."
+      }
+    }
+  }
+}

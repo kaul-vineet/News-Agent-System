@@ -1,0 +1,8 @@
+kind: ConnectorTool
+authMode: Invoker
+connectionReference: crf98_bfsimanifestbuilder_zMmb1d.cr.shared_office365
+connectorId: /providers/Microsoft.PowerApps/apis/shared_office365
+operationId: GetEmailV2
+toolInputs:
+  - name: messageId
+    description: Id of the email. The exact Outlook message ID supplied in sourceMessageId. Use it unchanged. Do not use the conversation ID or Internet Message-ID header. 
