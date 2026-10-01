@@ -1804,6 +1804,86 @@
                       "width": 294,
                       "height": 66
                     },
+                    "selected": false
+                  },
+                  {
+                    "id": "agent-1d0f5a62-f157-4b43-9205-1e0ce10f970b",
+                    "name": "News Summary Agent",
+                    "type": "agent",
+                    "version": 1,
+                    "position": {
+                      "x": 553.754648423796,
+                      "y": 1780.6011188793664
+                    },
+                    "data": {
+                      "config": {
+                        "mode": "invoke",
+                        "instructions": "runId: @{outputs('builtinFunction-92d54872-7c89-48b2-a5bd-49656a6f59f2')}\nExecute only your configured strict flow and return only the required raw JSON object.",
+                        "botSchemaName": "crf98_bajajnewsummarygenerator_XYGjw1",
+                        "isHitlEscalationEnabled": false,
+                        "webSearchEnabled": false,
+                        "inlineInstructions": "",
+                        "outputMode": "text",
+                        "inlineModel": "claude-opus-5",
+                        "connectionName": "shared_agentnode",
+                        "instructionsRich": {
+                          "segments": [
+                            {
+                              "type": "static",
+                              "value": "runId: "
+                            },
+                            {
+                              "type": "token",
+                              "value": "@{outputs('builtinFunction-92d54872-7c89-48b2-a5bd-49656a6f59f2')}",
+                              "tokenRef": {
+                                "type": "step",
+                                "stepId": "builtinFunction-92d54872-7c89-48b2-a5bd-49656a6f59f2",
+                                "stepName": "Create runId",
+                                "outputName": "output",
+                                "outputType": "string",
+                                "outputDisplayName": "Output",
+                                "expressionTemplate": "outputs('{action}')"
+                              }
+                            },
+                            {
+                              "type": "static",
+                              "value": "\nExecute only your configured strict flow and return only the required raw JSON object."
+                            }
+                          ]
+                        }
+                      },
+                      "outcomes": [
+                        {
+                          "id": "default",
+                          "label": "Default",
+                          "outcomeSchema": {
+                            "type": "object",
+                            "properties": {
+                              "result": {
+                                "type": "string",
+                                "description": "The agent response text"
+                              },
+                              "status": {
+                                "type": "string",
+                                "description": "The completion status (e.g., Completed)"
+                              },
+                              "conversationId": {
+                                "type": "string",
+                                "description": "Unique identifier for the conversation"
+                              }
+                            },
+                            "required": [
+                              "result",
+                              "conversationId"
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "measured": {
+                      "width": 294,
+                      "height": 66
+                    },
                     "selected": true
                   }
                 ],
@@ -1883,6 +1963,11 @@
                     "target": "connector-4e6dea09-1fe2-422e-97e3-f415f0ecdacf",
                     "sourceHandle": "external-output",
                     "targetHandle": "input"
+                  },
+                  {
+                    "id": "edge-connector-4e6dea09-1fe2-422e-97e3-f415f0ecdacf-agent-1d0f5a62-f157-4b43-9205-1e0ce10f970b",
+                    "source": "connector-4e6dea09-1fe2-422e-97e3-f415f0ecdacf",
+                    "target": "agent-1d0f5a62-f157-4b43-9205-1e0ce10f970b"
                   }
                 ],
                 "connectionReferences": {
