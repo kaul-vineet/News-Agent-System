@@ -1,0 +1,3 @@
+connectionReferences:
+  - connectionReferenceLogicalName: crf98_bajajnewsummarygenerator_XYGjw1.cr.shared_sharepointonline
+    connectorId: /providers/Microsoft.PowerApps/apis/shared_sharepointonline

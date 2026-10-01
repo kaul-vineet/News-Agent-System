@@ -4,7 +4,6 @@
   "required": [
     "runId",
     "status",
-    "sourceMessageId",
     "subject",
     "sentMessageId",
     "createdAtUtc",
@@ -16,7 +15,6 @@
       "type": "string",
       "enum": ["pending", "sent"]
     },
-    "sourceMessageId": { "type": "string" },
     "subject": { "type": "string" },
     "sentMessageId": { "type": "string" },
     "createdAtUtc": { "type": "string" },

@@ -1,0 +1,20 @@
+mcs.metadata:
+  componentName: Mark Delivery Sent
+  description: Updates the contents of the file specified by the file identifier.
+kind: ConnectorTool
+authMode: Invoker
+connectionReference: crf98_bajajnewsummarygenerator_XYGjw1.cr.shared_sharepointonline
+connectorId: /providers/Microsoft.PowerApps/apis/shared_sharepointonline
+operationId: UpdateFile
+toolInputs:
+  - name: dataset
+    value:
+      kind: ValueReference
+      type: "{\"type\":\"string\"}"
+      defaultValue: "\"https://m365cpi17930677.sharepoint.com\""
+
+  - name: id
+    description: Use only the SharePoint file identifier returned by Create Pending Delivery Ledger for this run.
+
+  - name: body
+    description: Create raw JSON for this run with status set to sent, the newsletter subject, the Outlook sent message identifier when the send tool returns one (otherwise an empty string), the original createdAtUtc, and updatedAtUtc set to the current UTC time. Do not include Markdown.

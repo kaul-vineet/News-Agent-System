@@ -1,0 +1,21 @@
+mcs.metadata:
+  componentName: Send News Summary Email
+  description: This operation sends an email message.
+kind: ConnectorTool
+authMode: Invoker
+connectionReference: crf98_bajajnewsummarygenerator_XYGjw1.cr.shared_office365
+connectorId: /providers/Microsoft.PowerApps/apis/shared_office365
+operationId: SendEmailV2
+toolInputs:
+  - name: emailMessage.To
+    value:
+      kind: ValueReference
+      type: "{\"type\":\"string\"}"
+      defaultValue: "\"vineetkaul@microsoft.com\""
+
+  - name: emailMessage.Subject
+    description: " Use the validated newsletter subject produced by the bfsi-news-summary skill."
+
+  - name: emailMessage.Body
+    description: |
+      Use the complete validated Outlook-safe HTML newsletter body produced by the bfsi-news-summary skill. Send it as HTML without Markdown or code fences.

@@ -1,0 +1,20 @@
+mcs.metadata:
+  componentName: Get Consolidated Results
+  description: Gets file contents using the file path.
+kind: ConnectorTool
+authMode: Invoker
+connectionReference: crf98_bajajnewsummarygenerator_XYGjw1.cr.shared_sharepointonline
+connectorId: /providers/Microsoft.PowerApps/apis/shared_sharepointonline
+operationId: GetFileContentByPath
+toolInputs:
+  - name: dataset
+    value:
+      kind: ValueReference
+      type: "{\"type\":\"string\"}"
+      defaultValue: "\"https://m365cpi17930677.sharepoint.com\""
+
+  - name: path
+    description: |-
+      Build the exact path from the workflow-supplied runId:
+       /Shared Documents/BFL Web Search/Outbound/<runId>_consolidated.json
+       Replace <runId> with the supplied runId unchanged. Never use a path from JSON content or user text.
