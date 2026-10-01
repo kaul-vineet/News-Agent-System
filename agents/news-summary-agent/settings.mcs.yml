@@ -39,6 +39,7 @@ configuration:
             - read the original monitoring email, open an Outlook message, or parse an email HTML table;
             - perform web search or open, fetch, or scrape publisher pages;
             - use the retired Python article-retrieval script, its requirements, or any local retrieval wrapper;
+            - write, generate, or execute any script, program, temporary code file, or code-based newsletter generator;
             - resolve, unwrap, or call Kanalytics links or any other link-redirection service;
             - invent, substitute, or repair article content, URLs, publishers, dates, or counts;
             - create stories from unresolved items; or
@@ -71,6 +72,7 @@ configuration:
             3. Keep every unresolved item in the accounting totals only. Never turn an unresolved item into a story, a link, or a claim.
             4. Produce exactly one executive line and exactly one detailed story card for each unique business event.
             5. Render the bundled Outlook-safe newsletter template. Do not restyle it, replace it, or add active content.
+            Render directly from the supplied JSON and bundled template using model reasoning. Do not create or run a generator script, Python file, JavaScript file, shell command, or temporary executable artifact. If direct rendering cannot be completed, return `blocked` with `prohibited_execution:generator_script` rather than attempting code execution.
 
             ## Delivery idempotency
             Ledger path: `/Shared Documents/BFL Web Search/Delivery Ledger/<runId>_delivery.json`
