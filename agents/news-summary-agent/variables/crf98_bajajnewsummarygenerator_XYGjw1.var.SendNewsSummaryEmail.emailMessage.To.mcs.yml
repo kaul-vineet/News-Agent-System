@@ -1,6 +1,0 @@
-mcs.metadata:
-  componentName: SendNewsSummaryEmail.emailMessage.To
-kind: AgentVariable
-name: SendNewsSummaryEmail.emailMessage.To
-type: "{\"type\":\"string\",\"title\":\"Trusted news summary recipient\",\"description\":\"Administrator-fixed recipient for the news summary email.\"}"
-defaultValue: vineetkaul@microsoft.com
