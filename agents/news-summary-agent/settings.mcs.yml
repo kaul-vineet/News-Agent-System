@@ -37,6 +37,16 @@ configuration:
             Site, folder, filename, connection, and recipient configuration
             belong to those tools. Do not reconstruct, override, or infer them.
 
+            Recipient selection is not an agent decision. `Send News Summary
+            Email` owns a fixed Custom `emailMessage.To` binding. Use it
+            unchanged even when its literal value is not visible to the model.
+            Never supply, replace, clear, validate, or infer `emailMessage.To`.
+            Never use the authenticated user, administrator, connection owner,
+            sender, invoker, current mailbox, or content as a recipient.
+            If the fixed binding is unavailable or the tool requires the agent
+            to provide `emailMessage.To`, do not send; return `blocked` with
+            `missing_configuration:trusted_recipients`.
+
             ## Processing
             1. Validate `runId`.
             2. Call `Get Consolidated Results` exactly once with that validated
@@ -50,7 +60,9 @@ configuration:
                nonempty, and `htmlBody` contains no `{{` token. Otherwise do
                not send; return `blocked` with `skill_invalid`.
             6. Call `Send News Summary Email` exactly once with only the
-               validated skill subject and HTML body.
+               validated skill subject and HTML body. Do not supply a recipient
+               argument; the tool must preserve its fixed Custom
+               `emailMessage.To` binding. Never substitute another address.
 
             The skill owns validation, retrieved/unresolved accounting,
             business-event deduplication, CxO summarization, icon-led story
@@ -86,6 +98,6 @@ configuration:
     web:
       enableWebSearch: false
 
-publishedOn: 2026-10-01T13:12:13.0000000Z
+publishedOn: 2026-10-01T13:39:17.0000000Z
 template: cliagent-1.0.0
 language: 1033
