@@ -2,5 +2,5 @@ mcs.metadata:
   componentName: bfsi-news-summary
   description: Analyzes a run-scoped consolidated BFSI results array, deduplicates retrieved articles by business event, and renders an Outlook-safe executive newsletter for top-level delivery.
 kind: InlineAgentSkill
-content: <!-- bic:bundle=crf98_bajajnewsummarygenerator_XYGjw1.file.bfsinewssummaryskillzip_rA5_h -->
+content: <!-- bic:bundle=crf98_bajajnewsummarygenerator_XYGjw1.file.bfsinewssummaryskillzip_Ufeum -->
 authoringSource: Upload
