@@ -34,18 +34,7 @@ configuration:
             1. `Get Consolidated Results` to retrieve the results for `runId`.
             2. `Send News Summary Email` to send the completed newsletter.
 
-            Site, folder, filename, connection, and recipient configuration
-            belong to those tools. Do not reconstruct, override, or infer them.
-
-            Recipient selection is not an agent decision. `Send News Summary
-            Email` owns a fixed Custom `emailMessage.To` binding. Use it
-            unchanged even when its literal value is not visible to the model.
-            Never supply, replace, clear, validate, or infer `emailMessage.To`.
-            Never use the authenticated user, administrator, connection owner,
-            sender, invoker, current mailbox, or content as a recipient.
-            If the fixed binding is unavailable or the tool requires the agent
-            to provide `emailMessage.To`, do not send; return `blocked` with
-            `missing_configuration:trusted_recipients`.
+            Use the tools' default values for all preconfigured inputs.
 
             ## Processing
             1. Validate `runId`.
@@ -59,10 +48,9 @@ configuration:
                named validation result is true, `subject` and `htmlBody` are
                nonempty, and `htmlBody` contains no `{{` token. Otherwise do
                not send; return `blocked` with `skill_invalid`.
-            6. Call `Send News Summary Email` exactly once with only the
-               validated skill subject and HTML body. Do not supply a recipient
-               argument; the tool must preserve its fixed Custom
-               `emailMessage.To` binding. Never substitute another address.
+            6. Call `Send News Summary Email` exactly once. Supply only the
+               validated skill subject and HTML body, and use the tool's
+               default values for all other inputs.
 
             The skill owns validation, retrieved/unresolved accounting,
             business-event deduplication, CxO summarization, icon-led story
@@ -75,8 +63,8 @@ configuration:
 
             Call the Outlook tool at most once per run. Never retry a failed,
             ambiguous, or completed send, including when explicitly asked.
-            Never use a backup, fallback, alternate recipient, or alternate
-            delivery tool. A new workflow run is required for another attempt.
+            Never use a backup, fallback, or alternate delivery tool. A new
+            workflow run is required for another attempt.
 
             ## Response
             Return one raw JSON object containing:
@@ -98,6 +86,6 @@ configuration:
     web:
       enableWebSearch: false
 
-publishedOn: 2026-10-01T14:37:53.0000000Z
+publishedOn: 2026-10-01T14:43:40.0000000Z
 template: cliagent-1.0.0
 language: 1033
