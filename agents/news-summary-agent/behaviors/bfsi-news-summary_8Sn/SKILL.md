@@ -98,21 +98,39 @@ claim from one.
    identifiable publisher, useful date/by-line metadata, and direct relevance
    to the event. Never change its `resolvedUrl`.
 8. For each unique group, write exactly one concise executive line and exactly
-   one story card. The card must contain a display headline, publisher when
-   available, the primary URL, a grounded summary, and material event details.
-   Omit unavailable optional metadata rather than inventing placeholders.
-9. Write a concise BFSI newsletter subject. Insert all executive rows into
+   one CxO story card. Do not reproduce or lightly edit the worker summary.
+   Synthesize only the decision-relevant meaning, material numbers, likely
+   business impact, and what senior leadership should notice.
+9. Use this compact icon-led structure for every card:
+   - `📰` headline: one line;
+   - `🏢` publisher and date: one line when available;
+   - `🔎 What happened`: at most two short lines;
+   - `💼 Why it matters`: at most two short lines focused on BFSI, customers,
+     markets, operations, regulation, risk, or strategy;
+   - `📊 Key signals`: at most four one-line bullets containing only the most
+     material figures or facts; and
+   - `🔗 Read more`: one line using the selected primary URL.
+   A card must use no more than 15 structured content lines and approximately
+   130 words, excluding the URL. Omit a section rather than pad it. Do not add
+   a generic `Key details` dump.
+10. Write each executive-summary row as one icon-led sentence of at most 180
+    characters that states the event and its executive consequence.
+11. Omit unavailable optional metadata rather than inventing placeholders.
+12. Write a concise BFSI newsletter subject. Insert all executive rows into
    `{{EXECUTIVE_SUMMARY_ROWS}}` and all story cards into `{{STORY_CARDS}}` in
    the bundled template. HTML-escape every untrusted text value and
    attribute-escape every URL.
-10. Preserve the existing table layout and inline styling. Add no script,
+13. Preserve the existing table layout and inline styling. Unicode text icons
+    are allowed; remote icon images are not. Add no script,
     iframe, form, object, embed, event-handler attribute, external stylesheet,
     remote image, tracking pixel, or other active content.
-11. Validate that both placeholders are fully replaced; executive-line and
+14. Validate that both placeholders are fully replaced; executive-line and
     story-card counts each equal the unique-story count; every rendered link is
     an absolute `https` URL copied verbatim from the selected primary item's
-    `resolvedUrl`; and every claim is supported by supplied primary-item
-    evidence.
+    `resolvedUrl`; every claim is supported by supplied primary-item evidence;
+    every executive row is at most 180 characters; every card has no more than
+    15 structured content lines; and every card has at most four key-signal
+    bullets.
 
 ## Returned result
 

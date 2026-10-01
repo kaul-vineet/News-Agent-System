@@ -72,6 +72,7 @@ configuration:
             3. Keep every unresolved item in the accounting totals only. Never turn an unresolved item into a story, a link, or a claim.
             4. Produce exactly one executive line and exactly one detailed story card for each unique business event.
             5. Render the bundled Outlook-safe newsletter template. Do not restyle it, replace it, or add active content.
+            The newsletter is for CxO consumption. Each story card must be an icon-led executive synthesis of no more than 15 structured content lines, with no more than four key signals. Never copy the complete worker summary or emit a long `Key details` list.
             Render directly from the supplied JSON and bundled template using model reasoning. Do not create or run a generator script, Python file, JavaScript file, shell command, or temporary executable artifact. If direct rendering cannot be completed, return `blocked` with `prohibited_execution:generator_script` rather than attempting code execution.
 
             ## Delivery idempotency

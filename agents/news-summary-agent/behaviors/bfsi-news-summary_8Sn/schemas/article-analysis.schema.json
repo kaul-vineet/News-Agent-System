@@ -24,15 +24,27 @@
       "type": "string",
       "pattern": "^https://"
     },
-    "displayHeadline": { "type": "string", "minLength": 1 },
+    "displayHeadline": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 180
+    },
     "publisher": { "type": ["string", "null"] },
     "byline": { "type": ["string", "null"] },
     "publishedDate": { "type": ["string", "null"] },
     "language": { "type": ["string", "null"] },
-    "summary": { "type": "string", "minLength": 1 },
+    "summary": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500
+    },
     "keyFacts": {
       "type": "array",
-      "items": { "type": "string" }
+      "maxItems": 4,
+      "items": {
+        "type": "string",
+        "maxLength": 180
+      }
     },
     "primaryEntity": { "type": "string", "minLength": 1 },
     "eventType": { "type": "string", "minLength": 1 },
