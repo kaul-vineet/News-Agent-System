@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Retrieved article semantic analysis",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "articleId",
+    "selectedUrl",
+    "displayHeadline",
+    "summary",
+    "keyFacts",
+    "primaryEntity",
+    "eventType",
+    "action",
+    "subject",
+    "confidence"
+  ],
+  "properties": {
+    "articleId": {
+      "type": "string",
+      "pattern": "^item-(0|[1-9][0-9]*)$"
+    },
+    "selectedUrl": {
+      "type": "string",
+      "pattern": "^https://"
+    },
+    "displayHeadline": { "type": "string", "minLength": 1 },
+    "publisher": { "type": ["string", "null"] },
+    "byline": { "type": ["string", "null"] },
+    "publishedDate": { "type": ["string", "null"] },
+    "language": { "type": ["string", "null"] },
+    "summary": { "type": "string", "minLength": 1 },
+    "keyFacts": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "primaryEntity": { "type": "string", "minLength": 1 },
+    "eventType": { "type": "string", "minLength": 1 },
+    "action": { "type": "string", "minLength": 1 },
+    "subject": { "type": "string", "minLength": 1 },
+    "eventDate": { "type": ["string", "null"] },
+    "amountOrRate": { "type": ["string", "null"] },
+    "keywords": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+  }
+}

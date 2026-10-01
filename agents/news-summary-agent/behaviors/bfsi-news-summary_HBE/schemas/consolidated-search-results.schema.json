@@ -32,7 +32,19 @@
       },
       "finalHost": {
         "type": ["string", "null"],
-        "description": "Host of the resolved article, used as the publisher."
+        "description": "Optional publisher alias."
+      },
+      "resolvedDomain": {
+        "type": ["string", "null"],
+        "description": "Optional publisher alias."
+      },
+      "sourceDomain": {
+        "type": ["string", "null"],
+        "description": "Optional publisher alias."
+      },
+      "publisher": {
+        "type": ["string", "null"],
+        "description": "Optional publisher alias."
       },
       "publishedDate": {
         "type": ["string", "null"],
@@ -40,7 +52,15 @@
       },
       "journalist": {
         "type": ["string", "null"],
-        "description": "By-line, when known. Upstream output may instead use author or byline."
+        "description": "Optional by-line alias."
+      },
+      "author": {
+        "type": ["string", "null"],
+        "description": "Optional by-line alias."
+      },
+      "byline": {
+        "type": ["string", "null"],
+        "description": "Optional by-line alias."
       },
       "language": {
         "type": ["string", "null"],
