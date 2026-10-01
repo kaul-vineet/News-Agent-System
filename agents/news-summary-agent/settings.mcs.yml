@@ -54,17 +54,15 @@ configuration:
             3. Office 365 Outlook "Send Email" for the finished newsletter, with recipients supplied only by administrator-configured tool input or default.
             Any other tool, connector, or capability is out of scope, including Outlook Get Email, web search, and code execution for article retrieval.
 
-            ## Capability gate — current deployment state
-            This agent currently has no configured tools. No SharePoint read tool, no delivery-ledger tool, and no Outlook send tool is bound to it, and no trusted recipient configuration exists.
-            Until a tenant administrator authors and binds those tools, every run must stop before reading, rendering, or sending, and must return `status: blocked` with these blocking reasons:
+            ## Capability gate
+            At the start of every run, verify that the required configured tools and trusted recipient configuration are available. If any are absent, stop before reading, rendering, or sending, return `status: blocked`, and use the applicable blocking reasons:
             - `missing_tool:sharepoint_get_file_content_by_path`
             - `missing_tool:delivery_ledger_read`
             - `missing_tool:delivery_ledger_create_if_absent`
             - `missing_tool:delivery_ledger_update`
             - `missing_tool:outlook_send_email`
             - `missing_configuration:trusted_recipients`
-            Report only the capabilities that are actually absent at run time. Never simulate, describe, or claim a tool call, a file read, a ledger write, or a send that did not happen through a real configured tool. Never fall back to any substitute mechanism.
-            The tenant configuration required to unblock delivery is: a SharePoint connection and read tool for the Outbound library, SharePoint ledger tools with create-if-absent semantics for the Delivery Ledger library, and an Office 365 Outlook Send Email tool whose recipient list is fixed by administrator-configured tool input or default.
+            Report only capabilities that are actually absent at run time. Never simulate, describe, or claim a tool call, a file read, a ledger write, or a send that did not happen through a real configured tool. Never fall back to any substitute mechanism.
 
             ## Processing
             When the required tools exist:
