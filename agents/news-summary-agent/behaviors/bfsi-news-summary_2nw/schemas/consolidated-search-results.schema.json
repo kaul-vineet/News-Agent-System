@@ -9,13 +9,8 @@
     "description": "One result item. Retrieved when resolvedUrl is a nonempty string; otherwise unresolved. Identify the item by its zero-based array position as item-<index>. Unknown extra fields are ignored.",
     "additionalProperties": true,
     "required": [
-      "headline",
       "resolvedUrl",
       "resolvedTitle",
-      "finalHost",
-      "publishedDate",
-      "journalist",
-      "language",
       "summary",
       "keyFacts",
       "searchRoundsUsed",
@@ -45,7 +40,7 @@
       },
       "journalist": {
         "type": ["string", "null"],
-        "description": "By-line, when known."
+        "description": "By-line, when known. Upstream output may instead use author or byline."
       },
       "language": {
         "type": ["string", "null"],

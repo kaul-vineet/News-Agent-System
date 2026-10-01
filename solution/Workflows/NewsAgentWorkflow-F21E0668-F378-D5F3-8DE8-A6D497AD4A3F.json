@@ -986,8 +986,7 @@
                     "measured": {
                       "width": 240,
                       "height": 66
-                    },
-                    "selected": false
+                    }
                   },
                   {
                     "id": "loop-035ba1bc-1d35-41dd-ad34-ad3fdb9d5dcb",
@@ -1035,8 +1034,7 @@
                     "measured": {
                       "width": 500,
                       "height": 406
-                    },
-                    "selected": false
+                    }
                   },
                   {
                     "id": "agent-a42dc9bf-946c-475d-a69a-896c3f9b6c16",
@@ -1183,8 +1181,7 @@
                     "measured": {
                       "width": 240,
                       "height": 66
-                    },
-                    "selected": false
+                    }
                   },
                   {
                     "id": "builtinFunction-92d54872-7c89-48b2-a5bd-49656a6f59f2",
@@ -1250,7 +1247,7 @@
                     "data": {
                       "config": {
                         "mode": "invoke",
-                        "instructions": "@json(concat('{\"runId\":\"', body('builtinFunction-92d54872-7c89-48b2-a5bd-49656a6f59f2')?['output'], '\",\"sourceMessageId\":\"', triggerOutputs()?['body/id'], '\"}'))",
+                        "instructions": "runId: @{outputs('builtinFunction-92d54872-7c89-48b2-a5bd-49656a6f59f2')}\r\nsourceMessageId: @{triggerOutputs()?['body/id']}",
                         "botSchemaName": "crf98_bfsimanifestbuilder_zMmb1d",
                         "isHitlEscalationEnabled": false,
                         "webSearchEnabled": false,
@@ -1261,17 +1258,37 @@
                         "instructionsRich": {
                           "segments": [
                             {
+                              "type": "static",
+                              "value": "runId: "
+                            },
+                            {
                               "type": "token",
-                              "value": "@json(concat('{\"runId\":\"', body('builtinFunction-92d54872-7c89-48b2-a5bd-49656a6f59f2')?['output'], '\",\"sourceMessageId\":\"', triggerOutputs()?['body/id'], '\"}'))",
+                              "value": "@{outputs('builtinFunction-92d54872-7c89-48b2-a5bd-49656a6f59f2')}",
                               "tokenRef": {
-                                "type": "function",
-                                "stepId": "function",
-                                "stepName": "Conversion",
-                                "outputName": "json",
-                                "outputType": "object",
-                                "functionName": "json",
-                                "functionCategory": "conversion",
-                                "rawExpression": "json(concat('{\"runId\":\"', body('builtinFunction-92d54872-7c89-48b2-a5bd-49656a6f59f2')?['output'], '\",\"sourceMessageId\":\"', triggerOutputs()?['body/id'], '\"}'))"
+                                "type": "step",
+                                "stepId": "builtinFunction-92d54872-7c89-48b2-a5bd-49656a6f59f2",
+                                "stepName": "Create runId",
+                                "outputName": "output",
+                                "outputType": "string",
+                                "outputDisplayName": "Output",
+                                "expressionTemplate": "outputs('{action}')"
+                              }
+                            },
+                            {
+                              "type": "static",
+                              "value": "\r\nsourceMessageId: "
+                            },
+                            {
+                              "type": "token",
+                              "value": "@{triggerOutputs()?['body/id']}",
+                              "tokenRef": {
+                                "type": "trigger",
+                                "stepId": "trigger",
+                                "stepName": "When a new email arrives",
+                                "outputName": "body/id",
+                                "outputType": "string",
+                                "outputAlias": "body/id",
+                                "outputDisplayName": "Message Id"
                               }
                             }
                           ]
@@ -1403,7 +1420,7 @@
                     },
                     "measured": {
                       "width": 240,
-                      "height": 121
+                      "height": 169
                     }
                   },
                   {
@@ -1480,9 +1497,7 @@
                     "measured": {
                       "width": 240,
                       "height": 66
-                    },
-                    "selected": false,
-                    "dragging": false
+                    }
                   },
                   {
                     "id": "builtinFunction-4a1b5ea5-29c6-40c8-a15d-7f83220bf83b",
@@ -1563,13 +1578,21 @@
                             "id": "2c191b24-36c4-4e73-b2d3-c3b8d5de94ce",
                             "variableName": "searchResults",
                             "mode": "appendToArray",
-                            "value": "Value expression: body('builtinFunction-4a1b5ea5-29c6-40c8-a15d-7f83220bf83b')",
+                            "value": "@body('Parse_Search_Result')",
                             "type": "array",
                             "valueRich": {
                               "segments": [
                                 {
-                                  "type": "static",
-                                  "value": "Value expression: body('builtinFunction-4a1b5ea5-29c6-40c8-a15d-7f83220bf83b')"
+                                  "type": "token",
+                                  "value": "@body('Parse_Search_Result')",
+                                  "tokenRef": {
+                                    "type": "step",
+                                    "stepId": "Parse_Search_Result",
+                                    "stepName": "Parse Search Result",
+                                    "outputName": "body",
+                                    "outputType": "object",
+                                    "outputAlias": "body"
+                                  }
                                 }
                               ]
                             }
@@ -1696,7 +1719,7 @@
                           "dataset": "https://m365cpi17930677.sharepoint.com",
                           "folderPath": "/Shared Documents/BFL Web Search/Outbound",
                           "name": "@concat(outputs('builtinFunction-92d54872-7c89-48b2-a5bd-49656a6f59f2'), '_consolidated.json')",
-                          "body": "@variables('searchResults')"
+                          "body": "@string(variables('searchResults'))"
                         }
                       },
                       "outcomes": [
@@ -1781,7 +1804,6 @@
                       "width": 294,
                       "height": 66
                     },
-                    "dragging": false,
                     "selected": true
                   }
                 ],
@@ -1954,7 +1976,7 @@
           "type": "OpenApiConnection",
           "inputs": {
             "parameters": {
-              "body/prompt": "@{json(concat('{\"runId\":\"', body('Create_runId')?['output'], '\",\"sourceMessageId\":\"', triggerOutputs()?['body/id'], '\"}'))}",
+              "body/prompt": "runId: @{outputs('Create_runId')}\r\nsourceMessageId: @{triggerOutputs()?['body/id']}",
               "body/agentId": "crf98_bfsimanifestbuilder_zMmb1d"
             },
             "host": {
@@ -2288,7 +2310,7 @@
               "type": "AppendToArrayVariable",
               "inputs": {
                 "name": "searchResults",
-                "value": "Value expression: body('Parse_Search_Result')"
+                "value": "@body('Parse_Search_Result')"
               },
               "runAfter": {
                 "Parse_Search_Result": [
@@ -2318,7 +2340,7 @@
               "dataset": "https://m365cpi17930677.sharepoint.com",
               "folderPath": "/Shared Documents/BFL Web Search/Outbound",
               "name": "@concat(outputs('Create_runId'), '_consolidated.json')",
-              "body": "@variables('searchResults')"
+              "body": "@string(variables('searchResults'))"
             },
             "host": {
               "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
