@@ -1346,7 +1346,7 @@
                         "iconUri": "https://logicappsv2resources.blob.core.windows.net/icons/compose.svg",
                         "brandColor": "#8c6cff",
                         "parameters": {
-                          "content": "@body('agent-fbc2290f-aca3-479c-ae7b-6f3f0edd6b8b')?['result']",
+                          "content": "@replace(replace(replace(trim(body('agent-fbc2290f-aca3-479c-ae7b-6f3f0edd6b8b')?['result']), '```json', ''), '```JSON', ''), '```', '')",
                           "schema": "{\n    \"type\": \"object\",\n    \"properties\": {\n        \"status\": {\n            \"type\": \"string\"\n        },\n        \"runId\": {\n            \"type\": \"string\"\n        },\n        \"manifestFileIdentifier\": {\n            \"type\": \"string\"\n        },\n        \"manifestFilePath\": {\n            \"type\": \"string\"\n        },\n        \"itemCount\": {\n            \"type\": \"integer\"\n        },\n        \"failureReason\": {\n            \"type\": \"string\"\n        }\n    }\n}"
                         },
                         "description": "Parse JSON content to make it easier to access properties.",
@@ -1518,7 +1518,7 @@
                         "iconUri": "https://logicappsv2resources.blob.core.windows.net/icons/compose.svg",
                         "brandColor": "#8c6cff",
                         "parameters": {
-                          "content": "@body('agent-a42dc9bf-946c-475d-a69a-896c3f9b6c16')?['result']",
+                          "content": "@replace(replace(replace(trim(body('agent-a42dc9bf-946c-475d-a69a-896c3f9b6c16')?['result']), '```json', ''), '```JSON', ''), '```', '')",
                           "schema": "{\n    \"type\": \"object\",\n    \"properties\": {\n        \"headline\": {\n            \"type\": \"string\"\n        },\n        \"resolvedUrl\": {\n            \"type\": [\n                \"string\",\n                \"null\"\n            ]\n        },\n        \"resolvedTitle\": {\n            \"type\": [\n                \"string\",\n                \"null\"\n            ]\n        },\n        \"finalHost\": {\n            \"type\": [\n                \"string\",\n                \"null\"\n            ]\n        },\n        \"publishedDate\": {\n            \"type\": [\n                \"string\",\n                \"null\"\n            ]\n        },\n        \"journalist\": {\n            \"type\": [\n                \"string\",\n                \"null\"\n            ]\n        },\n        \"language\": {\n            \"type\": [\n                \"string\",\n                \"null\"\n            ]\n        },\n        \"summary\": {\n            \"type\": [\n                \"string\",\n                \"null\"\n            ]\n        },\n        \"keyFacts\": {\n            \"type\": \"array\",\n            \"items\": {\n                \"type\": \"string\"\n            }\n        },\n        \"searchRoundsUsed\": {\n            \"type\": \"integer\"\n        },\n        \"failureCategory\": {\n            \"type\": [\n                \"string\",\n                \"null\"\n            ]\n        },\n        \"reason\": {\n            \"type\": [\n                \"string\",\n                \"null\"\n            ]\n        }\n    }\n}"
                         },
                         "description": "Parse JSON content to make it easier to access properties.",
@@ -1596,6 +1596,63 @@
                                 }
                               ]
                             }
+                          }
+                        ]
+                      },
+                      "outcomes": [
+                        {
+                          "id": "default",
+                          "label": "Default",
+                          "outcomeSchema": {
+                            "type": "object",
+                            "properties": {},
+                            "description": "Variables set by this node"
+                          }
+                        }
+                      ]
+                    },
+                    "parentId": "loop-035ba1bc-1d35-41dd-ad34-ad3fdb9d5dcb",
+                    "measured": {
+                      "width": 240,
+                      "height": 66
+                    },
+                    "selected": false
+                  },
+                  {
+                    "id": "variable-8f112d4c-5f0b-4d03-9b3c-8ca6c8d76a21",
+                    "name": "Append unresolved search result",
+                    "type": "variable",
+                    "version": 1,
+                    "position": {
+                      "x": 330,
+                      "y": 292
+                    },
+                    "data": {
+                      "config": {
+                        "assignments": [
+                          {
+                            "id": "71d64be3-d7e5-4280-bceb-3d4d3ab00cd1",
+                            "variableName": "searchResults",
+                            "mode": "appendToArray",
+                            "value": {
+                              "runId": "@items('Process_manifest_items')?['runId']",
+                              "inputId": "@items('Process_manifest_items')?['inputId']",
+                              "status": "unresolved",
+                              "headline": "@items('Process_manifest_items')?['headline']",
+                              "sourceDomain": "@items('Process_manifest_items')?['sourceDomain']",
+                              "resolvedUrl": null,
+                              "resolvedTitle": null,
+                              "finalHost": null,
+                              "publishedDate": null,
+                              "journalist": "@items('Process_manifest_items')?['journalist']",
+                              "language": "@items('Process_manifest_items')?['language']",
+                              "summary": null,
+                              "keyFacts": [],
+                              "searchRoundsUsed": 0,
+                              "failureCategory": "other",
+                              "reason": "search_agent_response_not_valid_json"
+                            },
+                            "type": "array"
                           }
                         ]
                       },
@@ -1952,8 +2009,19 @@
                     "target": "variable-44ba78ae-22f9-450e-81b4-ceb45a8971ed"
                   },
                   {
+                    "id": "edge-builtinFunction-4a1b5ea5-29c6-40c8-a15d-7f83220bf83b-variable-8f112d4c-5f0b-4d03-9b3c-8ca6c8d76a21",
+                    "source": "builtinFunction-4a1b5ea5-29c6-40c8-a15d-7f83220bf83b",
+                    "target": "variable-8f112d4c-5f0b-4d03-9b3c-8ca6c8d76a21"
+                  },
+                  {
                     "id": "edge-variable-44ba78ae-22f9-450e-81b4-ceb45a8971ed-loop-035ba1bc-1d35-41dd-ad34-ad3fdb9d5dcb-internal-target",
                     "source": "variable-44ba78ae-22f9-450e-81b4-ceb45a8971ed",
+                    "target": "loop-035ba1bc-1d35-41dd-ad34-ad3fdb9d5dcb",
+                    "targetHandle": "internal-target"
+                  },
+                  {
+                    "id": "edge-variable-8f112d4c-5f0b-4d03-9b3c-8ca6c8d76a21-loop-035ba1bc-1d35-41dd-ad34-ad3fdb9d5dcb-internal-target",
+                    "source": "variable-8f112d4c-5f0b-4d03-9b3c-8ca6c8d76a21",
                     "target": "loop-035ba1bc-1d35-41dd-ad34-ad3fdb9d5dcb",
                     "targetHandle": "internal-target"
                   },
@@ -2037,6 +2105,9 @@
                 "variable-44ba78ae-22f9-450e-81b4-ceb45a8971ed": [
                   "Append_to_array_variable"
                 ],
+                "variable-8f112d4c-5f0b-4d03-9b3c-8ca6c8d76a21": [
+                  "Append_unresolved_search_result"
+                ],
                 "loop-035ba1bc-1d35-41dd-ad34-ad3fdb9d5dcb": [
                   "Process_manifest_items"
                 ],
@@ -2109,7 +2180,7 @@
                 }
               }
             },
-            "content": "@body('Create_News_Manifest')?['result']"
+            "content": "@replace(replace(replace(trim(body('Create_News_Manifest')?['result']), '```json', ''), '```JSON', ''), '```', '')"
           },
           "runAfter": {
             "Create_News_Manifest": [
@@ -2382,7 +2453,7 @@
                     }
                   }
                 },
-                "content": "@body('Resilient_Search_Agent')?['result']"
+                "content": "@replace(replace(replace(trim(body('Resilient_Search_Agent')?['result']), '```json', ''), '```JSON', ''), '```', '')"
               },
               "runAfter": {
                 "Resilient_Search_Agent": [
@@ -2408,6 +2479,41 @@
               "metadata": {
                 "description": "Append to array variable",
                 "nodeId": "variable-44ba78ae-22f9-450e-81b4-ceb45a8971ed"
+              }
+            },
+            "Append_unresolved_search_result": {
+              "type": "AppendToArrayVariable",
+              "inputs": {
+                "name": "searchResults",
+                "value": {
+                  "runId": "@items('Process_manifest_items')?['runId']",
+                  "inputId": "@items('Process_manifest_items')?['inputId']",
+                  "status": "unresolved",
+                  "headline": "@items('Process_manifest_items')?['headline']",
+                  "sourceDomain": "@items('Process_manifest_items')?['sourceDomain']",
+                  "resolvedUrl": null,
+                  "resolvedTitle": null,
+                  "finalHost": null,
+                  "publishedDate": null,
+                  "journalist": "@items('Process_manifest_items')?['journalist']",
+                  "language": "@items('Process_manifest_items')?['language']",
+                  "summary": null,
+                  "keyFacts": [],
+                  "searchRoundsUsed": 0,
+                  "failureCategory": "other",
+                  "reason": "search_agent_response_not_valid_json"
+                }
+              },
+              "runAfter": {
+                "Parse_Search_Result": [
+                  "Failed",
+                  "TimedOut",
+                  "Skipped"
+                ]
+              },
+              "metadata": {
+                "description": "Append unresolved search result",
+                "nodeId": "variable-8f112d4c-5f0b-4d03-9b3c-8ca6c8d76a21"
               }
             }
           },
