@@ -1634,25 +1634,26 @@
                             "id": "71d64be3-d7e5-4280-bceb-3d4d3ab00cd1",
                             "variableName": "searchResults",
                             "mode": "appendToArray",
-                            "value": {
-                              "runId": "@items('Process_manifest_items')?['runId']",
-                              "inputId": "@items('Process_manifest_items')?['inputId']",
-                              "status": "unresolved",
-                              "headline": "@items('Process_manifest_items')?['headline']",
-                              "sourceDomain": "@items('Process_manifest_items')?['sourceDomain']",
-                              "resolvedUrl": null,
-                              "resolvedTitle": null,
-                              "finalHost": null,
-                              "publishedDate": null,
-                              "journalist": "@items('Process_manifest_items')?['journalist']",
-                              "language": "@items('Process_manifest_items')?['language']",
-                              "summary": null,
-                              "keyFacts": [],
-                              "searchRoundsUsed": 0,
-                              "failureCategory": "other",
-                              "reason": "search_agent_response_not_valid_json"
-                            },
-                            "type": "array"
+                            "value": "@{json('{\"status\":\"unresolved\",\"resolvedUrl\":null,\"resolvedTitle\":null,\"summary\":null,\"keyFacts\":[],\"searchRoundsUsed\":0,\"failureCategory\":\"other\",\"reason\":\"search_agent_response_not_valid_json\"}')}",
+                            "type": "array",
+                            "valueRich": {
+                              "segments": [
+                                {
+                                  "type": "token",
+                                  "value": "@{json('{\"status\":\"unresolved\",\"resolvedUrl\":null,\"resolvedTitle\":null,\"summary\":null,\"keyFacts\":[],\"searchRoundsUsed\":0,\"failureCategory\":\"other\",\"reason\":\"search_agent_response_not_valid_json\"}')}",
+                                  "tokenRef": {
+                                    "type": "function",
+                                    "stepId": "function",
+                                    "stepName": "Conversion",
+                                    "outputName": "json",
+                                    "outputType": "object",
+                                    "functionName": "json",
+                                    "functionCategory": "conversion",
+                                    "rawExpression": "json('{\"status\":\"unresolved\",\"resolvedUrl\":null,\"resolvedTitle\":null,\"summary\":null,\"keyFacts\":[],\"searchRoundsUsed\":0,\"failureCategory\":\"other\",\"reason\":\"search_agent_response_not_valid_json\"}')"
+                                  }
+                                }
+                              ]
+                            }
                           }
                         ]
                       },
@@ -2485,24 +2486,7 @@
               "type": "AppendToArrayVariable",
               "inputs": {
                 "name": "searchResults",
-                "value": {
-                  "runId": "@items('Process_manifest_items')?['runId']",
-                  "inputId": "@items('Process_manifest_items')?['inputId']",
-                  "status": "unresolved",
-                  "headline": "@items('Process_manifest_items')?['headline']",
-                  "sourceDomain": "@items('Process_manifest_items')?['sourceDomain']",
-                  "resolvedUrl": null,
-                  "resolvedTitle": null,
-                  "finalHost": null,
-                  "publishedDate": null,
-                  "journalist": "@items('Process_manifest_items')?['journalist']",
-                  "language": "@items('Process_manifest_items')?['language']",
-                  "summary": null,
-                  "keyFacts": [],
-                  "searchRoundsUsed": 0,
-                  "failureCategory": "other",
-                  "reason": "search_agent_response_not_valid_json"
-                }
+                "value": "@json('{\"status\":\"unresolved\",\"resolvedUrl\":null,\"resolvedTitle\":null,\"summary\":null,\"keyFacts\":[],\"searchRoundsUsed\":0,\"failureCategory\":\"other\",\"reason\":\"search_agent_response_not_valid_json\"}')"
               },
               "runAfter": {
                 "Parse_Search_Result": [
