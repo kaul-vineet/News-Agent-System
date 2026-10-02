@@ -7,7 +7,7 @@ Source-controlled Copilot Studio implementation of the BFSI news workflow.
 | Component | Path | Tenant display name |
 |---|---|---|
 | Manifest agent | `agents/news-manifest-builder` | News Manifest Builder |
-| Search agent | `agents/resilient-search-agent` | Resilient Search Agent |
+| Search agent | `agents/resilient-search-agent` | News Search Agent |
 | Summary agent | `agents/news-summary-agent` | News Summary Agent |
 | Workflow solution | `solution` | News Agent Workflow |
 
@@ -17,7 +17,7 @@ Source-controlled Copilot Studio implementation of the BFSI news workflow.
 Outlook email trigger
   -> News Manifest Builder
   -> SharePoint manifest JSON
-  -> Resilient Search Agent loop
+  -> News Search Agent loop
   -> one SharePoint consolidated JSON
   -> News Summary Agent
   -> deduplicated newsletter
@@ -45,9 +45,12 @@ control. Clone or initialize each agent locally before pulling or pushing.
 
 - All three tenant agents are represented as CLI-authoring projects.
 - News Agent Workflow is unpacked from the solution ZIP.
-- News Manifest Builder and Resilient Search Agent are deployed and working.
-- News Summary Agent is deployed with exactly two configured tools: consolidated
-  SharePoint read and Outlook send.
+- News Manifest Builder is managed in the target tenant.
+- News Search Agent is deployed and published.
+- The News Summary Agent source defines one summary skill and exactly two tools:
+  consolidated SharePoint read and Outlook send.
+- Target deployment of News Summary Agent is pending recreation because the
+  earlier solution import produced malformed skill and tool placeholders.
 - News Agent Workflow invokes News Summary Agent after consolidated-file
-  creation with connector retry disabled.
-- The workflow and News Summary Agent are published in the tenant.
+  creation with connector retry disabled; its target reference must be verified
+  after the Summary Agent is recreated.

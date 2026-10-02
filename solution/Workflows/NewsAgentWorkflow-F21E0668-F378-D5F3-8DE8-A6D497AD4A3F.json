@@ -1038,7 +1038,7 @@
                   },
                   {
                     "id": "agent-a42dc9bf-946c-475d-a69a-896c3f9b6c16",
-                    "name": "Resilient Search Agent",
+                    "name": "News Search Agent",
                     "type": "agent",
                     "version": 1,
                     "position": {
@@ -2376,7 +2376,7 @@
                 }
               },
               "metadata": {
-                "description": "Resilient Search Agent",
+                "description": "News Search Agent",
                 "nodeId": "agent-a42dc9bf-946c-475d-a69a-896c3f9b6c16"
               }
             },

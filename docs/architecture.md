@@ -17,7 +17,7 @@ Behavior:
 
 It does not search articles or send email.
 
-## Resilient Search Agent
+## News Search Agent
 
 Input:
 
@@ -40,7 +40,7 @@ Behavior:
 2. Creates a deterministic `runId`.
 3. Calls News Manifest Builder.
 4. retrieves and parses the manifest from SharePoint.
-5. Calls Resilient Search Agent sequentially for each manifest item.
+5. Calls News Search Agent sequentially for each manifest item.
 6. Appends each parsed response to an in-memory array.
 7. Creates one `<runId>_consolidated.json` file in SharePoint.
 8. Calls News Summary Agent with only `runId`.
